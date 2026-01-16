@@ -765,6 +765,113 @@
   font-size: var(--font-size-sm);
 }
 
+/* Collapsed Summary View */
+.account-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.account-summary:hover {
+  background: var(--gray-100);
+}
+
+.account-summary-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.summary-value {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.summary-value.health-good { color: #059669; }
+.summary-value.health-warning { color: #D97706; }
+.summary-value.health-critical { color: #DC2626; }
+
+.summary-label {
+  font-size: 10px;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.summary-item.renewal-warning .summary-value { color: #D97706; }
+.summary-item.renewal-urgent .summary-value { color: #DC2626; }
+
+.summary-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--gray-200);
+}
+
+.account-expand-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.account-expand-btn:hover {
+  background: var(--gray-200);
+  color: var(--gray-600);
+}
+
+.expand-icon {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+.account-expand-btn.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Expanded Details (hidden by default) */
+.account-expanded {
+  display: none;
+  padding-top: var(--space-md);
+  animation: slideDown 0.2s ease;
+}
+
+.account-expanded.show {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .account-metric-row {
   display: flex;
   gap: var(--space-sm);
@@ -773,7 +880,7 @@
 
 .account-metric-row.primary {
   background: linear-gradient(135deg, var(--primary-light) 0%, #E0F2FE 100%);
-  padding: var(--space-md);
+  padding: var(--space-sm);
   border-radius: var(--radius-md);
 }
 
@@ -784,33 +891,33 @@
 
 .metric-label {
   display: block;
-  font-size: var(--font-size-xs);
+  font-size: 10px;
   color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 2px;
 }
 
 .metric-value {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: 700;
   color: var(--primary);
 }
 
 /* Health Score */
 .account-health {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 .health-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 4px;
 }
 
 .health-score {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   font-weight: 700;
 }
 
@@ -823,7 +930,7 @@
 .trend-stable { color: #6B7280; }
 
 .health-bar {
-  height: 6px;
+  height: 4px;
   background: var(--gray-200);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -842,9 +949,9 @@
 /* Contract & Renewal */
 .account-contract {
   background: var(--gray-50);
-  padding: var(--space-sm);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
   border-left: 3px solid var(--gray-300);
 }
 
@@ -865,6 +972,7 @@
 }
 
 .contract-days {
+  font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--gray-700);
 }
@@ -873,7 +981,7 @@
 .renewal-urgent .contract-days { color: #DC2626; }
 
 .contract-date {
-  font-size: var(--font-size-xs);
+  font-size: 10px;
   color: var(--gray-500);
 }
 
@@ -881,23 +989,23 @@
 .account-details-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+  gap: 4px var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .account-detail {
-  padding: var(--space-xs);
+  padding: 2px 0;
 }
 
 .detail-label {
   display: block;
-  font-size: var(--font-size-xs);
+  font-size: 10px;
   color: var(--gray-400);
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .detail-value {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--gray-700);
   font-weight: 500;
 }
@@ -912,19 +1020,19 @@
 
 /* Products Tags */
 .account-products {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-xs);
 }
 
 .product-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-top: var(--space-xs);
+  gap: 4px;
+  margin-top: 4px;
 }
 
 .product-tag {
-  font-size: var(--font-size-xs);
-  padding: 2px 8px;
+  font-size: 10px;
+  padding: 2px 6px;
   background: var(--primary-light);
   color: var(--primary);
   border-radius: var(--radius-full);

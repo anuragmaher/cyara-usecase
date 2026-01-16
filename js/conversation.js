@@ -324,7 +324,7 @@ const Conversation = {
   },
 
   /**
-   * Render account information
+   * Render account information (collapsible)
    */
   renderAccountInfo(customer) {
     const accountInfo = document.getElementById('account-info');
@@ -344,74 +344,127 @@ const Conversation = {
     const renewalClass = renewalDays <= 90 ? 'renewal-urgent' : renewalDays <= 180 ? 'renewal-warning' : '';
 
     accountInfo.innerHTML = `
-      <!-- MRR & ARR -->
-      <div class="account-metric-row primary">
-        <div class="account-metric">
-          <span class="metric-label">MRR</span>
-          <span class="metric-value">$${Utils.formatNumber(account.mrr)}</span>
+      <!-- Collapsed Summary (always visible) -->
+      <div class="account-summary" id="account-summary">
+        <div class="account-summary-row">
+          <div class="summary-item">
+            <span class="summary-value">$${this.formatCompactNumber(account.mrr)}</span>
+            <span class="summary-label">MRR</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-item">
+            <span class="summary-value ${healthClass}">${account.healthScore}</span>
+            <span class="summary-label">Health</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-item ${renewalClass}">
+            <span class="summary-value">${renewalDays}d</span>
+            <span class="summary-label">Renewal</span>
+          </div>
         </div>
-        <div class="account-metric">
-          <span class="metric-label">ARR</span>
-          <span class="metric-value">$${Utils.formatNumber(account.arr)}</span>
-        </div>
+        <button class="account-expand-btn" id="account-expand-btn">
+          <span class="expand-icon">▼</span>
+        </button>
       </div>
 
-      <!-- Health Score -->
-      <div class="account-health">
-        <div class="health-header">
-          <span class="metric-label">Health Score</span>
-          <span class="health-score ${healthClass}">${account.healthScore} ${trendIcon}</span>
+      <!-- Expanded Details (hidden by default) -->
+      <div class="account-expanded" id="account-expanded">
+        <!-- MRR & ARR -->
+        <div class="account-metric-row primary">
+          <div class="account-metric">
+            <span class="metric-label">MRR</span>
+            <span class="metric-value">$${Utils.formatNumber(account.mrr)}</span>
+          </div>
+          <div class="account-metric">
+            <span class="metric-label">ARR</span>
+            <span class="metric-value">$${Utils.formatNumber(account.arr)}</span>
+          </div>
         </div>
-        <div class="health-bar">
-          <div class="health-fill ${healthClass}" style="width: ${account.healthScore}%"></div>
-        </div>
-      </div>
 
-      <!-- Contract & Renewal -->
-      <div class="account-contract ${renewalClass}">
-        <div class="contract-header">
-          <span class="metric-label">Contract Renewal</span>
-          <span class="contract-days">${renewalDays > 0 ? renewalDays + ' days' : 'Expired'}</span>
+        <!-- Health Score -->
+        <div class="account-health">
+          <div class="health-header">
+            <span class="metric-label">Health Score</span>
+            <span class="health-score ${healthClass}">${account.healthScore} ${trendIcon}</span>
+          </div>
+          <div class="health-bar">
+            <div class="health-fill ${healthClass}" style="width: ${account.healthScore}%"></div>
+          </div>
         </div>
-        <span class="contract-date">${Utils.formatDate(account.contractEnd)}</span>
-      </div>
 
-      <!-- Details Grid -->
-      <div class="account-details-grid">
-        <div class="account-detail">
-          <span class="detail-label">Support Plan</span>
-          <span class="detail-value">${account.supportPlan}</span>
+        <!-- Contract & Renewal -->
+        <div class="account-contract ${renewalClass}">
+          <div class="contract-header">
+            <span class="metric-label">Contract Renewal</span>
+            <span class="contract-days">${renewalDays > 0 ? renewalDays + ' days' : 'Expired'}</span>
+          </div>
+          <span class="contract-date">${Utils.formatDate(account.contractEnd)}</span>
         </div>
-        <div class="account-detail">
-          <span class="detail-label">CSM</span>
-          <span class="detail-value">${account.csm}</span>
-        </div>
-        <div class="account-detail">
-          <span class="detail-label">Seats</span>
-          <span class="detail-value">${account.seats}</span>
-        </div>
-        <div class="account-detail">
-          <span class="detail-label">Total Tickets</span>
-          <span class="detail-value">${account.totalTickets}</span>
-        </div>
-        <div class="account-detail">
-          <span class="detail-label">Avg Resolution</span>
-          <span class="detail-value">${account.avgResolutionTime}</span>
-        </div>
-        <div class="account-detail">
-          <span class="detail-label">NPS Score</span>
-          <span class="detail-value nps ${this.getNpsClass(account.npsScore)}">${account.npsScore}</span>
-        </div>
-      </div>
 
-      <!-- Products -->
-      <div class="account-products">
-        <span class="detail-label">Products</span>
-        <div class="product-tags">
-          ${account.products.map(p => `<span class="product-tag">${p}</span>`).join('')}
+        <!-- Details Grid -->
+        <div class="account-details-grid">
+          <div class="account-detail">
+            <span class="detail-label">Support Plan</span>
+            <span class="detail-value">${account.supportPlan}</span>
+          </div>
+          <div class="account-detail">
+            <span class="detail-label">CSM</span>
+            <span class="detail-value">${account.csm}</span>
+          </div>
+          <div class="account-detail">
+            <span class="detail-label">Seats</span>
+            <span class="detail-value">${account.seats}</span>
+          </div>
+          <div class="account-detail">
+            <span class="detail-label">Total Tickets</span>
+            <span class="detail-value">${account.totalTickets}</span>
+          </div>
+          <div class="account-detail">
+            <span class="detail-label">Avg Resolution</span>
+            <span class="detail-value">${account.avgResolutionTime}</span>
+          </div>
+          <div class="account-detail">
+            <span class="detail-label">NPS Score</span>
+            <span class="detail-value nps ${this.getNpsClass(account.npsScore)}">${account.npsScore}</span>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div class="account-products">
+          <span class="detail-label">Products</span>
+          <div class="product-tags">
+            ${account.products.map(p => `<span class="product-tag">${p}</span>`).join('')}
+          </div>
         </div>
       </div>
     `;
+
+    // Bind expand/collapse toggle
+    const expandBtn = document.getElementById('account-expand-btn');
+    const summary = document.getElementById('account-summary');
+    const expanded = document.getElementById('account-expanded');
+
+    const toggleExpand = () => {
+      const isExpanded = expanded.classList.contains('show');
+      expanded.classList.toggle('show');
+      expandBtn.classList.toggle('expanded');
+    };
+
+    expandBtn.addEventListener('click', toggleExpand);
+    summary.addEventListener('click', (e) => {
+      if (e.target !== expandBtn && !expandBtn.contains(e.target)) {
+        toggleExpand();
+      }
+    });
+  },
+
+  /**
+   * Format number to compact form (e.g., 125000 → "125K")
+   */
+  formatCompactNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+    return num.toString();
   },
 
   /**

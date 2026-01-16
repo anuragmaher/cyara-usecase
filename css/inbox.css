@@ -1,0 +1,185 @@
+/* Inbox Panel */
+.inbox-panel {
+  width: var(--inbox-width);
+  background: white;
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.filter-tab {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.filter-tab:hover {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.filter-tab.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.inbox-search {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.inbox-search input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--gray-50);
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.inbox-search input:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.inbox-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Ticket Item */
+.ticket-item {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ticket-item:hover {
+  background: var(--gray-50);
+}
+
+.ticket-item.active {
+  background: var(--primary-light);
+  border-left: 3px solid var(--primary);
+}
+
+.ticket-item.unread {
+  background: var(--gray-50);
+}
+
+.ticket-item.unread .ticket-subject {
+  font-weight: 600;
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.ticket-channel {
+  font-size: var(--font-size-sm);
+}
+
+.ticket-channel.email { color: var(--channel-email); }
+.ticket-channel.chat { color: var(--channel-chat); }
+.ticket-channel.slack { color: var(--channel-slack); }
+.ticket-channel.phone { color: var(--channel-phone); }
+
+.ticket-customer {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-time {
+  font-size: var(--font-size-xs);
+  color: var(--gray-400);
+}
+
+.ticket-subject {
+  font-size: var(--font-size-md);
+  color: var(--gray-800);
+  margin-bottom: var(--space-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-preview {
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.ticket-tier {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.ticket-tier.tier-1 { background: #DCFCE7; color: #166534; }
+.ticket-tier.tier-2 { background: #FEF3C7; color: #92400E; }
+.ticket-tier.tier-3 { background: #FEE2E2; color: #991B1B; }
+
+.ticket-priority {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.ticket-priority.high { background: #FEE2E2; color: #991B1B; }
+.ticket-priority.medium { background: #FEF3C7; color: #92400E; }
+.ticket-priority.low { background: #E5E7EB; color: #374151; }
+
+.ticket-tags {
+  display: flex;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.ticket-tag {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  border-radius: var(--radius-sm);
+}
+
+.ticket-tag.jira {
+  background: #DEEBFF;
+  color: var(--channel-jira);
+}
+
+.ticket-tag.slack {
+  background: #FCE7F3;
+  color: var(--channel-slack);
+}

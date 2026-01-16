@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiver Omnichannel - Prototype</title>
+
+  <!-- CSS Modules -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/inbox.css">
+  <link rel="stylesheet" href="css/conversation.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">H</span>
+        <span class="logo-text">Hiver</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-view="inbox">
+          <span class="nav-icon">📥</span>
+          <span class="nav-label">Inbox</span>
+          <span class="nav-badge" id="inbox-count">12</span>
+        </a>
+        <a href="#" class="nav-item" data-view="escalations">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">Escalations</span>
+        </a>
+        <a href="#" class="nav-item" data-view="knowledge">
+          <span class="nav-icon">📚</span>
+          <span class="nav-label">Knowledge Base</span>
+        </a>
+        <a href="#" class="nav-item" data-view="analytics">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Analytics</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-avatar">AM</div>
+        <div class="user-info">
+          <span class="user-name">Agent Mike</span>
+          <span class="user-status online">Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Inbox Panel -->
+      <section class="inbox-panel" id="inbox-panel">
+        <header class="panel-header">
+          <h2>Inbox</h2>
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="email">Email</button>
+            <button class="filter-tab" data-filter="chat">Chat</button>
+            <button class="filter-tab" data-filter="slack">Slack</button>
+            <button class="filter-tab" data-filter="phone">Phone</button>
+          </div>
+        </header>
+
+        <div class="inbox-search">
+          <input type="text" placeholder="Search conversations..." id="inbox-search">
+        </div>
+
+        <div class="inbox-list" id="inbox-list">
+          <!-- Tickets rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Conversation Panel -->
+      <section class="conversation-panel" id="conversation-panel">
+        <div class="conversation-empty" id="conversation-empty">
+          <div class="empty-icon">💬</div>
+          <h3>Select a conversation</h3>
+          <p>Choose a ticket from the inbox to view the conversation</p>
+        </div>
+
+        <div class="conversation-content" id="conversation-content" style="display: none;">
+          <!-- Header -->
+          <header class="conversation-header" id="conversation-header">
+            <!-- Rendered by JS -->
+          </header>
+
+          <!-- Timeline -->
+          <div class="conversation-timeline" id="conversation-timeline">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Reply Box -->
+          <div class="reply-box" id="reply-box">
+            <div class="reply-channel-switch">
+              <span>Reply via:</span>
+              <select id="reply-channel">
+                <option value="email">Email</option>
+                <option value="chat">Chat</option>
+                <option value="slack">Slack</option>
+              </select>
+            </div>
+            <textarea placeholder="Type your reply..." id="reply-text"></textarea>
+            <div class="reply-actions">
+              <button class="btn btn-secondary" id="btn-kb-suggest">📚 KB Suggest</button>
+              <button class="btn btn-secondary" id="btn-canned">📝 Canned Response</button>
+              <button class="btn btn-primary" id="btn-send">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Sidebar - Context Panel -->
+      <aside class="context-panel" id="context-panel" style="display: none;">
+        <!-- Customer Info -->
+        <div class="context-section" id="customer-info">
+          <h4>Customer</h4>
+          <div class="customer-card" id="customer-card">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Ticket Actions -->
+        <div class="context-section">
+          <h4>Actions</h4>
+          <div class="action-buttons">
+            <button class="btn btn-action" id="btn-escalate">
+              <span>📈</span> Escalate
+            </button>
+            <button class="btn btn-action" id="btn-jira">
+              <span>🔗</span> Create Jira
+            </button>
+            <button class="btn btn-action" id="btn-slack-link">
+              <span>💬</span> Link Slack
+            </button>
+          </div>
+        </div>
+
+        <!-- Escalation Status -->
+        <div class="context-section" id="escalation-section">
+          <h4>Escalation Path</h4>
+          <div class="escalation-ladder" id="escalation-ladder">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Linked Items -->
+        <div class="context-section" id="linked-items">
+          <h4>Linked Items</h4>
+          <div class="linked-list" id="linked-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- KB Suggestions -->
+        <div class="context-section" id="kb-suggestions">
+          <h4>Suggested Articles</h4>
+          <div class="kb-list" id="kb-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal-overlay" id="modal-overlay" style="display: none;">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Modal content -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <!-- Modal actions -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/inbox.js"></script>
+  <script src="js/conversation.js"></script>
+  <script src="js/escalation.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/ai-ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

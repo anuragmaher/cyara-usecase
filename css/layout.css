@@ -1,0 +1,47 @@
+/* Main Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Panel Base Styles */
+.panel-header {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--gray-200);
+  background: white;
+}
+
+.panel-header h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+/* Scrollable Areas */
+.scrollable {
+  overflow-y: auto;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}

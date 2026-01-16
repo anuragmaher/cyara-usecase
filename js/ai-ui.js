@@ -87,6 +87,33 @@ const AIUI = {
   },
 
   /**
+   * Auto-analyze ticket when selected (shows insights bar without opening drawer)
+   */
+  async autoAnalyzeTicket(ticket) {
+    if (!ticket) return;
+
+    const timeline = MockData.timelines[ticket.id] || [];
+    const customer = MockData.customers[ticket.customerId];
+
+    try {
+      // Run sentiment and triage analysis for insights bar
+      const [sentiment, triage] = await Promise.all([
+        AI.analyzeSentiment(ticket, timeline),
+        AI.autoTriage(ticket.subject, timeline[0]?.content || '', customer?.tier)
+      ]);
+
+      // Update insights bar in conversation header
+      this.updateInsightsBar(ticket, sentiment, triage);
+
+      // Store partial analysis for later
+      this.currentAnalysis = { sentiment, triage };
+
+    } catch (error) {
+      console.error('Auto-analysis failed:', error);
+    }
+  },
+
+  /**
    * Toggle AI drawer
    */
   toggleDrawer() {
@@ -140,15 +167,16 @@ const AIUI = {
 
     try {
       // Run all AI analyses in parallel
-      const [sentiment, triage, summary, similar, replySuggestions] = await Promise.all([
+      const [sentiment, triage, summary, similar, replySuggestions, kbGaps] = await Promise.all([
         AI.analyzeSentiment(ticket, timeline),
         AI.autoTriage(ticket.subject, timeline[0]?.content || '', customer?.tier),
         AI.generateSummary(ticket, timeline),
         AI.findSimilarTickets(ticket),
-        AI.generateReplySuggestions(ticket, timeline)
+        AI.generateReplySuggestions(ticket, timeline),
+        AI.detectKBGaps(MockData.tickets)
       ]);
 
-      this.currentAnalysis = { sentiment, triage, summary, similar, replySuggestions };
+      this.currentAnalysis = { sentiment, triage, summary, similar, replySuggestions, kbGaps };
 
       // Render all AI insights
       this.renderAIInsights(drawerBody, ticket, {
@@ -156,7 +184,8 @@ const AIUI = {
         triage,
         summary,
         similar,
-        replySuggestions
+        replySuggestions,
+        kbGaps
       });
 
       // Update insights bar in conversation
@@ -176,7 +205,7 @@ const AIUI = {
    * Render all AI insights in drawer
    */
   renderAIInsights(container, ticket, analysis) {
-    const { sentiment, triage, summary, similar, replySuggestions } = analysis;
+    const { sentiment, triage, summary, similar, replySuggestions, kbGaps } = analysis;
 
     container.innerHTML = `
       <!-- Sentiment & Risk Section -->
@@ -217,6 +246,14 @@ const AIUI = {
           <span>🔍</span> Similar Tickets
         </div>
         ${this.renderSimilarTickets(similar)}
+      </div>
+
+      <!-- KB Gap Detection -->
+      <div class="ai-drawer-section">
+        <div class="ai-drawer-section-title">
+          <span>📚</span> Knowledge Base Gaps
+        </div>
+        ${this.renderKBGaps(kbGaps)}
       </div>
     `;
 
@@ -466,6 +503,74 @@ const AIUI = {
             </div>
           </div>
         `).join('')}
+      </div>
+    `;
+  },
+
+  /**
+   * Render KB gap detection results
+   */
+  renderKBGaps(kbGaps) {
+    if (!kbGaps || (kbGaps.gaps.length === 0 && kbGaps.staleArticles.length === 0)) {
+      return '<p style="color: var(--gray-400); font-size: 12px;">No knowledge base gaps detected</p>';
+    }
+
+    return `
+      <div class="ai-kb-gaps">
+        ${kbGaps.gaps.length > 0 ? `
+          <div class="kb-gaps-section">
+            <div class="kb-gaps-label">Missing Coverage</div>
+            ${kbGaps.gaps.filter(g => g.type === 'missing').map(gap => `
+              <div class="kb-gap-item missing">
+                <div class="kb-gap-header">
+                  <span class="kb-gap-topic">${gap.topic}</span>
+                  <span class="kb-gap-priority ${gap.priority}">${gap.priority}</span>
+                </div>
+                <div class="kb-gap-stats">
+                  ${gap.ticketCount} tickets • ${gap.unresolvedCount} unresolved
+                </div>
+                <div class="kb-gap-suggestion">${gap.suggestion}</div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        ${kbGaps.staleArticles.length > 0 ? `
+          <div class="kb-gaps-section">
+            <div class="kb-gaps-label">Stale Articles</div>
+            ${kbGaps.staleArticles.map(article => `
+              <div class="kb-gap-item stale">
+                <div class="kb-gap-header">
+                  <span class="kb-gap-topic">${article.title}</span>
+                  <span class="kb-gap-priority medium">stale</span>
+                </div>
+                <div class="kb-gap-stats">
+                  Last updated: ${article.lastUpdated} • ${article.views} views
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        ${kbGaps.suggestedArticles.length > 0 ? `
+          <div class="kb-gaps-section">
+            <div class="kb-gaps-label">Suggested New Articles</div>
+            ${kbGaps.suggestedArticles.map(article => `
+              <div class="kb-gap-item suggestion">
+                <div class="kb-gap-header">
+                  <span class="kb-gap-topic">${article.suggestedTitle}</span>
+                </div>
+                <div class="kb-gap-stats">
+                  Based on ${article.basedOnTickets} tickets about "${article.topic}"
+                </div>
+                <div class="kb-gap-outline">
+                  <div style="font-size: 10px; color: var(--gray-500); margin-bottom: 4px;">Suggested outline:</div>
+                  ${article.outline.map((item, i) => `<div style="font-size: 11px; color: var(--gray-600);">${i + 1}. ${item}</div>`).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     `;
   },

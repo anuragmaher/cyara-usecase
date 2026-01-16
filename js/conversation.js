@@ -96,6 +96,11 @@ const Conversation = {
     // Scroll timeline to bottom
     const timelineEl = document.getElementById('conversation-timeline');
     timelineEl.scrollTop = timelineEl.scrollHeight;
+
+    // Auto-run AI analysis to show insights bar
+    if (window.AIUI) {
+      AIUI.autoAnalyzeTicket(ticket);
+    }
   },
 
   /**

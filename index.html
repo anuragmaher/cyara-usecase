@@ -17,36 +17,40 @@
 <body>
   <div class="app-container">
     <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar collapsed" id="sidebar">
       <div class="sidebar-logo">
         <span class="logo-icon">H</span>
         <span class="logo-text">Hiver</span>
       </div>
 
+      <button class="sidebar-toggle" id="sidebar-toggle" title="Toggle sidebar">
+        <span class="toggle-icon">»</span>
+      </button>
+
       <nav class="sidebar-nav">
-        <a href="#" class="nav-item active" data-view="inbox">
+        <a href="#" class="nav-item active" data-view="inbox" title="Inbox">
           <span class="nav-icon">📥</span>
           <span class="nav-label">Inbox</span>
           <span class="nav-badge" id="inbox-count">12</span>
         </a>
-        <a href="#" class="nav-item" data-view="escalations">
+        <a href="#" class="nav-item" data-view="escalations" title="Escalations">
           <span class="nav-icon">📈</span>
           <span class="nav-label">Escalations</span>
         </a>
-        <a href="#" class="nav-item" data-view="knowledge">
+        <a href="#" class="nav-item" data-view="knowledge" title="Knowledge Base">
           <span class="nav-icon">📚</span>
           <span class="nav-label">Knowledge Base</span>
         </a>
-        <a href="#" class="nav-item" data-view="analytics">
+        <a href="#" class="nav-item" data-view="analytics" title="Analytics">
           <span class="nav-icon">📊</span>
           <span class="nav-label">Analytics</span>
         </a>
       </nav>
 
       <div class="sidebar-footer">
-        <div class="user-avatar">AM</div>
+        <div class="user-avatar">HG</div>
         <div class="user-info">
-          <span class="user-name">Agent Mike</span>
+          <span class="user-name">Harsha G</span>
           <span class="user-status online">Online</span>
         </div>
       </div>
@@ -132,8 +136,8 @@
             <button class="btn btn-action" id="btn-escalate">
               <span>📈</span> Escalate
             </button>
-            <button class="btn btn-action" id="btn-jira">
-              <span>🔗</span> Create Jira
+            <button class="btn btn-action" id="btn-clickup">
+              <span>🔗</span> Create ClickUp
             </button>
             <button class="btn btn-action" id="btn-slack-link">
               <span>💬</span> Link Slack

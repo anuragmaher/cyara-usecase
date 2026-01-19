@@ -34,6 +34,15 @@ const App = {
    * Bind global event listeners
    */
   bindEvents() {
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebarToggle && sidebar) {
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+      });
+    }
+
     // Navigation
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', (e) => {
@@ -158,33 +167,33 @@ const App = {
   },
 
   /**
-   * Simulate real-time Jira update
+   * Simulate real-time ClickUp update
    */
-  simulateJiraUpdate(ticketId, jiraKey, newStatus) {
+  simulateClickUpUpdate(ticketId, clickUpKey, newStatus) {
     const ticket = MockData.tickets.find(t => t.id === ticketId);
-    if (!ticket || !ticket.linkedJira) return;
+    if (!ticket || !ticket.linkedClickUp) return;
 
-    const jira = MockData.jiraIssues[jiraKey];
-    if (!jira) return;
+    const clickUp = MockData.clickUpIssues[clickUpKey];
+    if (!clickUp) return;
 
-    // Update Jira status
-    jira.status = newStatus;
-    jira.updated = new Date().toISOString();
+    // Update ClickUp status
+    clickUp.status = newStatus;
+    clickUp.updated = new Date().toISOString();
 
     // Add timeline event
     MockData.timelines[ticketId].push({
       id: `msg-${Date.now()}`,
       type: 'system',
-      channel: 'jira',
+      channel: 'clickup',
       timestamp: new Date().toISOString(),
-      content: `Jira ${jiraKey} updated: Status changed to "${newStatus}"`,
-      jiraStatus: newStatus
+      content: `ClickUp ${clickUpKey} updated: Status changed to "${newStatus}"`,
+      clickUpStatus: newStatus
     });
 
     // If resolved, change ticket status
-    if (newStatus === 'Resolved' || newStatus === 'Ready for Testing') {
+    if (newStatus === 'Resolved' || newStatus === 'Closed') {
       ticket.status = 'open'; // Returns to agent queue
-      Utils.showToast(`Jira ${jiraKey} is ready - ticket returned to queue`, 'success');
+      Utils.showToast(`ClickUp ${clickUpKey} is ready - ticket returned to queue`, 'success');
     }
 
     // Refresh if viewing this ticket
@@ -236,11 +245,11 @@ const App = {
    * Demo helper - simulate events for demonstration
    */
   demo: {
-    // Simulate Jira update
-    jiraUpdate() {
-      const ticket = MockData.tickets.find(t => t.linkedJira);
+    // Simulate ClickUp update
+    clickUpUpdate() {
+      const ticket = MockData.tickets.find(t => t.linkedClickUp);
       if (ticket) {
-        App.simulateJiraUpdate(ticket.id, ticket.linkedJira, 'Ready for Testing');
+        App.simulateClickUpUpdate(ticket.id, ticket.linkedClickUp, 'Resolved');
       }
     },
 
@@ -287,9 +296,9 @@ console.log(`
 ╠═══════════════════════════════════════════════════════════════╣
 ║  Demo Commands (run in browser console):                      ║
 ║  ─────────────────────────────────────────                    ║
-║  App.demo.jiraUpdate()   - Simulate Jira status update        ║
-║  App.demo.slackMessage() - Simulate incoming Slack message    ║
-║  App.demo.chatToEmail()  - Convert current chat to email      ║
+║  App.demo.clickUpUpdate() - Simulate ClickUp status update    ║
+║  App.demo.slackMessage()  - Simulate incoming Slack message   ║
+║  App.demo.chatToEmail()   - Convert current chat to email     ║
 ║                                                               ║
 ║  AI Features:                                                 ║
 ║  ─────────────────────────────────────────                    ║
@@ -297,7 +306,7 @@ console.log(`
 ║  to see AI analysis including:                                ║
 ║  • Smart Reply Suggestions                                    ║
 ║  • Sentiment & Urgency Detection                              ║
-║  • Auto-Triage (tier, priority, tags)                         ║
+║  • Auto-Triage (L0/L1/L2, priority, tags)                     ║
 ║  • Conversation Summary                                       ║
 ║  • Similar Tickets Finder                                     ║
 ║                                                               ║
@@ -306,8 +315,8 @@ console.log(`
 ║  • Unified omnichannel inbox (Email, Chat, Slack, Phone)      ║
 ║  • Chat-to-email conversion                                   ║
 ║  • Slack context capture (click Slack Thread)                 ║
-║  • Visual tier-based escalation                               ║
-║  • Bi-directional Jira integration (click Jira issue)         ║
+║  • Visual L0/L1/L2 escalation                                 ║
+║  • Bi-directional ClickUp integration                         ║
 ║  • KB article suggestions                                     ║
 ╚═══════════════════════════════════════════════════════════════╝
 `);

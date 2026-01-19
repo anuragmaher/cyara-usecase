@@ -79,7 +79,7 @@ const Utils = {
       chat: '💬',
       slack: '📱',
       phone: '📞',
-      jira: '🔗',
+      clickup: '🔗',
       system: '⚙️'
     };
     return icons[channel] || '📩';
@@ -94,7 +94,7 @@ const Utils = {
       chat: 'Chat',
       slack: 'Slack',
       phone: 'Phone',
-      jira: 'Jira',
+      clickup: 'ClickUp',
       system: 'System'
     };
     return names[channel] || channel;
@@ -105,11 +105,11 @@ const Utils = {
    */
   getTierName(tier) {
     const names = {
-      1: 'Tier 1',
-      2: 'Tier 2',
-      3: 'Tier 3'
+      0: 'L0',
+      1: 'L1',
+      2: 'L2'
     };
-    return names[tier] || `Tier ${tier}`;
+    return names[tier] || `L${tier}`;
   },
 
   /**
@@ -117,9 +117,9 @@ const Utils = {
    */
   getTierDescription(tier) {
     const descriptions = {
-      1: 'Operational / Process',
-      2: 'Technical Investigation',
-      3: 'Management / Complex'
+      0: 'First Response Support',
+      1: 'Technical Support',
+      2: 'Engineering'
     };
     return descriptions[tier] || '';
   },
@@ -129,6 +129,7 @@ const Utils = {
    */
   getPriorityDisplay(priority) {
     const displays = {
+      urgent: { label: 'Urgent', class: 'urgent' },
       high: { label: 'High', class: 'high' },
       medium: { label: 'Medium', class: 'medium' },
       low: { label: 'Low', class: 'low' }
@@ -157,6 +158,7 @@ const Utils = {
     const displays = {
       enterprise: { label: 'Enterprise', class: 'enterprise' },
       pro: { label: 'Pro', class: 'pro' },
+      trial: { label: 'Trial', class: 'trial' },
       free: { label: 'Free', class: 'free' }
     };
     return displays[tier] || { label: tier, class: '' };

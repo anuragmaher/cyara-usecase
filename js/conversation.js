@@ -55,10 +55,10 @@ const Conversation = {
       });
     }
 
-    // Jira button
-    const jiraBtn = document.getElementById('btn-jira');
-    if (jiraBtn) {
-      jiraBtn.addEventListener('click', () => this.showJiraModal());
+    // ClickUp button
+    const clickUpBtn = document.getElementById('btn-clickup');
+    if (clickUpBtn) {
+      clickUpBtn.addEventListener('click', () => this.showClickUpModal());
     }
 
     // Slack link button
@@ -193,13 +193,13 @@ const Conversation = {
    * Render a system message
    */
   renderSystemMessage(item) {
-    const icon = item.channel === 'jira' ? '🔗' : '⚙️';
+    const icon = item.channel === 'clickup' ? '🔗' : '⚙️';
     let statusBadge = '';
 
-    if (item.jiraStatus) {
-      const statusClass = item.jiraStatus === 'Ready for Testing' ? 'success' :
-                          item.jiraStatus === 'In Progress' ? 'warning' : '';
-      statusBadge = `<span class="status-badge ${statusClass}" style="margin-left: 8px;">${item.jiraStatus}</span>`;
+    if (item.clickUpStatus) {
+      const statusClass = item.clickUpStatus === 'Resolved' ? 'success' :
+                          item.clickUpStatus === 'In Progress' ? 'warning' : '';
+      statusBadge = `<span class="status-badge ${statusClass}" style="margin-left: 8px;">${item.clickUpStatus}</span>`;
     }
 
     return `
@@ -248,8 +248,8 @@ const Conversation = {
           <button class="btn btn-action" id="btn-escalate">
             <span>📈</span> Escalate
           </button>
-          <button class="btn btn-action" id="btn-jira">
-            <span>🔗</span> Create Jira
+          <button class="btn btn-action" id="btn-clickup">
+            <span>🔗</span> Create ClickUp
           </button>
           <button class="btn btn-action" id="btn-slack-link">
             <span>💬</span> Link Slack
@@ -315,10 +315,10 @@ const Conversation = {
       });
     }
 
-    // Jira button
-    const jiraBtn = document.getElementById('btn-jira');
-    if (jiraBtn) {
-      jiraBtn.addEventListener('click', () => this.showJiraModal());
+    // ClickUp button
+    const clickUpBtn = document.getElementById('btn-clickup');
+    if (clickUpBtn) {
+      clickUpBtn.addEventListener('click', () => this.showClickUpModal());
     }
 
     // Slack link button
@@ -536,21 +536,21 @@ const Conversation = {
   renderEscalationLadder(ticket) {
     const ladder = document.getElementById('escalation-ladder');
     const currentTier = ticket.tier;
-    const hasJira = !!ticket.linkedJira;
+    const hasClickUp = !!ticket.linkedClickUp;
 
     const steps = [
-      { tier: 1, label: 'Tier 1 - Process', icon: '1' },
-      { tier: 2, label: 'Tier 2 - Technical', icon: '2' },
-      { tier: 3, label: 'Tier 3 - Management', icon: '3' },
-      { tier: 4, label: 'Engineering (Jira)', icon: '🔧' }
+      { tier: 0, label: 'L0 - First Response', icon: '0' },
+      { tier: 1, label: 'L1 - Technical Support', icon: '1' },
+      { tier: 2, label: 'L2 - Engineering', icon: '2' },
+      { tier: 3, label: 'Engineering (ClickUp)', icon: '🔧' }
     ];
 
     ladder.innerHTML = steps.map(step => {
       let status = 'pending';
       if (step.tier < currentTier) status = 'completed';
       if (step.tier === currentTier) status = 'active';
-      if (step.tier === 4 && hasJira) status = 'active';
-      if (step.tier === 4 && !hasJira && currentTier < 4) status = 'pending';
+      if (step.tier === 3 && hasClickUp) status = 'active';
+      if (step.tier === 3 && !hasClickUp && currentTier < 3) status = 'pending';
 
       return `
         <div class="escalation-step ${status}">
@@ -562,21 +562,21 @@ const Conversation = {
   },
 
   /**
-   * Render linked items (Jira, Slack)
+   * Render linked items (ClickUp, Slack)
    */
   renderLinkedItems(ticket) {
     const linkedList = document.getElementById('linked-list');
     const items = [];
 
-    if (ticket.linkedJira) {
-      const jira = MockData.jiraIssues[ticket.linkedJira];
-      if (jira) {
+    if (ticket.linkedClickUp) {
+      const clickUp = MockData.clickUpIssues[ticket.linkedClickUp];
+      if (clickUp) {
         items.push(`
-          <div class="linked-item" data-type="jira" data-key="${jira.key}">
+          <div class="linked-item" data-type="clickup" data-key="${clickUp.key}">
             <span class="linked-icon">🔗</span>
             <div class="linked-info">
-              <div class="linked-title">${jira.key}: ${Utils.truncate(jira.summary, 30)}</div>
-              <div class="linked-status">Status: ${jira.status}</div>
+              <div class="linked-title">${clickUp.key}: ${Utils.truncate(clickUp.summary, 30)}</div>
+              <div class="linked-status">Status: ${clickUp.status}</div>
             </div>
           </div>
         `);
@@ -613,8 +613,8 @@ const Conversation = {
         const type = item.dataset.type;
         if (type === 'slack') {
           this.showSlackThreadPanel(ticket);
-        } else if (type === 'jira') {
-          this.showJiraPanel(item.dataset.key);
+        } else if (type === 'clickup') {
+          this.showClickUpPanel(item.dataset.key);
         }
       });
     });
@@ -731,7 +731,7 @@ const Conversation = {
       type: 'message',
       channel: 'slack',
       sender: 'agent',
-      senderName: 'Agent Mike',
+      senderName: 'Harsha G',
       timestamp: new Date().toISOString(),
       content: content,
       isSlackThread: true
@@ -744,154 +744,154 @@ const Conversation = {
   },
 
   /**
-   * Show Jira issue in the right panel (replaces context panel)
+   * Show ClickUp task in the right panel (replaces context panel)
    */
-  showJiraPanel(jiraKey) {
-    const jira = MockData.jiraIssues[jiraKey];
-    if (!jira) return;
+  showClickUpPanel(clickUpKey) {
+    const clickUp = MockData.clickUpIssues[clickUpKey];
+    if (!clickUp) return;
 
     const contextPanel = document.getElementById('context-panel');
     const ticket = this.currentTicket;
     const customer = MockData.customers[ticket?.customerId];
 
-    const statusClass = this.getJiraStatusClass(jira.status);
-    const priorityClass = this.getJiraPriorityClass(jira.priority);
+    const statusClass = this.getClickUpStatusClass(clickUp.status);
+    const priorityClass = this.getClickUpPriorityClass(clickUp.priority);
 
     // Build comments HTML
-    const commentsHtml = (jira.comments || []).map(comment => `
-      <div class="jira-comment">
-        <div class="jira-comment-header">
-          <span class="jira-comment-author">${Utils.escapeHtml(comment.author)}</span>
-          <span class="jira-comment-time">${Utils.formatDateTime(comment.timestamp)}</span>
+    const commentsHtml = (clickUp.comments || []).map(comment => `
+      <div class="clickup-comment">
+        <div class="clickup-comment-header">
+          <span class="clickup-comment-author">${Utils.escapeHtml(comment.author)}</span>
+          <span class="clickup-comment-time">${Utils.formatDateTime(comment.timestamp)}</span>
         </div>
-        <div class="jira-comment-body">${Utils.nl2br(comment.content)}</div>
+        <div class="clickup-comment-body">${Utils.nl2br(comment.content)}</div>
       </div>
     `).join('');
 
     // Build labels HTML
-    const labelsHtml = (jira.labels || []).map(label =>
-      `<span class="jira-label">${Utils.escapeHtml(label)}</span>`
+    const labelsHtml = (clickUp.labels || []).map(label =>
+      `<span class="clickup-label">${Utils.escapeHtml(label)}</span>`
     ).join('');
 
     // Build status dropdown options
-    const statusOptions = MockData.jiraStatuses.map(status =>
-      `<option value="${status}" ${status === jira.status ? 'selected' : ''}>${status}</option>`
+    const statusOptions = MockData.clickUpStatuses.map(status =>
+      `<option value="${status}" ${status === clickUp.status ? 'selected' : ''}>${status}</option>`
     ).join('');
 
     contextPanel.innerHTML = `
-      <div class="jira-panel">
-        <div class="jira-panel-header">
-          <button class="btn btn-secondary jira-back-btn" id="jira-back-btn">
+      <div class="clickup-panel">
+        <div class="clickup-panel-header">
+          <button class="btn btn-secondary clickup-back-btn" id="clickup-back-btn">
             ← Back
           </button>
-          <div class="jira-panel-title">
-            <span class="jira-key-badge">${jira.key}</span>
-            <span class="jira-type-badge">${jira.type || 'Bug'}</span>
+          <div class="clickup-panel-title">
+            <span class="clickup-key-badge">${clickUp.key}</span>
+            <span class="clickup-type-badge">${clickUp.type || 'Bug'}</span>
           </div>
         </div>
 
-        <div class="jira-panel-content">
+        <div class="clickup-panel-content">
           <!-- Summary -->
-          <div class="jira-section">
-            <h3 class="jira-summary-title">${Utils.escapeHtml(jira.summary)}</h3>
+          <div class="clickup-section">
+            <h3 class="clickup-summary-title">${Utils.escapeHtml(clickUp.summary)}</h3>
           </div>
 
           <!-- Status & Priority -->
-          <div class="jira-section jira-status-section">
-            <div class="jira-field">
+          <div class="clickup-section clickup-status-section">
+            <div class="clickup-field">
               <label>Status</label>
-              <select class="jira-status-select ${statusClass}" id="jira-status-select">
+              <select class="clickup-status-select ${statusClass}" id="clickup-status-select">
                 ${statusOptions}
               </select>
             </div>
-            <div class="jira-field">
+            <div class="clickup-field">
               <label>Priority</label>
-              <span class="jira-priority-badge ${priorityClass}">${jira.priority}</span>
+              <span class="clickup-priority-badge ${priorityClass}">${clickUp.priority}</span>
             </div>
           </div>
 
           <!-- Details -->
-          <div class="jira-section">
-            <div class="jira-details-grid">
-              <div class="jira-field">
+          <div class="clickup-section">
+            <div class="clickup-details-grid">
+              <div class="clickup-field">
                 <label>Assignee</label>
-                <span>${Utils.escapeHtml(jira.assignee)}</span>
+                <span>${Utils.escapeHtml(clickUp.assignee)}</span>
               </div>
-              <div class="jira-field">
+              <div class="clickup-field">
                 <label>Reporter</label>
-                <span>${Utils.escapeHtml(jira.reporter || 'Agent Mike')}</span>
+                <span>${Utils.escapeHtml(clickUp.reporter || 'Harsha G')}</span>
               </div>
-              <div class="jira-field">
+              <div class="clickup-field">
                 <label>Created</label>
-                <span>${Utils.formatDateTime(jira.created)}</span>
+                <span>${Utils.formatDateTime(clickUp.created)}</span>
               </div>
-              <div class="jira-field">
+              <div class="clickup-field">
                 <label>Updated</label>
-                <span>${Utils.formatDateTime(jira.updated)}</span>
+                <span>${Utils.formatDateTime(clickUp.updated)}</span>
               </div>
-              <div class="jira-field">
+              <div class="clickup-field">
                 <label>Linked Ticket</label>
-                <span class="jira-ticket-link">${jira.linkedTicket || ticket?.id || '-'}</span>
+                <span class="clickup-ticket-link">${clickUp.linkedTicket || ticket?.id || '-'}</span>
               </div>
             </div>
           </div>
 
           <!-- Labels -->
           ${labelsHtml ? `
-          <div class="jira-section">
+          <div class="clickup-section">
             <label>Labels</label>
-            <div class="jira-labels">${labelsHtml}</div>
+            <div class="clickup-labels">${labelsHtml}</div>
           </div>
           ` : ''}
 
           <!-- Description -->
-          <div class="jira-section">
+          <div class="clickup-section">
             <label>Description</label>
-            <div class="jira-description">${Utils.nl2br(jira.description || 'No description')}</div>
+            <div class="clickup-description">${Utils.nl2br(clickUp.description || 'No description')}</div>
           </div>
 
           <!-- Comments -->
-          <div class="jira-section jira-comments-section">
-            <label>Comments (${(jira.comments || []).length})</label>
-            <div class="jira-comments" id="jira-comments">
-              ${commentsHtml || '<p class="jira-no-comments">No comments yet</p>'}
+          <div class="clickup-section clickup-comments-section">
+            <label>Comments (${(clickUp.comments || []).length})</label>
+            <div class="clickup-comments" id="clickup-comments">
+              ${commentsHtml || '<p class="clickup-no-comments">No comments yet</p>'}
             </div>
           </div>
         </div>
 
         <!-- Add Comment -->
-        <div class="jira-panel-footer">
-          <input type="text" class="form-input" id="jira-comment-input"
+        <div class="clickup-panel-footer">
+          <input type="text" class="form-input" id="clickup-comment-input"
                  placeholder="Add a comment...">
-          <button class="btn btn-primary" id="jira-comment-send">Add</button>
+          <button class="btn btn-primary" id="clickup-comment-send">Add</button>
         </div>
       </div>
     `;
 
     // Scroll comments to bottom
-    const commentsContainer = document.getElementById('jira-comments');
+    const commentsContainer = document.getElementById('clickup-comments');
     if (commentsContainer) {
       commentsContainer.scrollTop = commentsContainer.scrollHeight;
     }
 
     // Bind back button
-    document.getElementById('jira-back-btn').onclick = () => {
+    document.getElementById('clickup-back-btn').onclick = () => {
       this.renderContextPanel(ticket, customer);
     };
 
     // Bind status change
-    document.getElementById('jira-status-select').onchange = (e) => {
-      this.updateJiraStatus(jiraKey, e.target.value);
+    document.getElementById('clickup-status-select').onchange = (e) => {
+      this.updateClickUpStatus(clickUpKey, e.target.value);
     };
 
     // Bind add comment
-    const sendBtn = document.getElementById('jira-comment-send');
-    const input = document.getElementById('jira-comment-input');
+    const sendBtn = document.getElementById('clickup-comment-send');
+    const input = document.getElementById('clickup-comment-input');
     if (sendBtn && input) {
       sendBtn.onclick = () => {
         const content = input.value.trim();
         if (content) {
-          this.addJiraComment(jiraKey, content);
+          this.addClickUpComment(clickUpKey, content);
           input.value = '';
         }
       };
@@ -904,14 +904,14 @@ const Conversation = {
   },
 
   /**
-   * Get CSS class for Jira status
+   * Get CSS class for ClickUp status
    */
-  getJiraStatusClass(status) {
+  getClickUpStatusClass(status) {
     const classes = {
       'Open': 'status-open',
       'In Progress': 'status-progress',
       'In Review': 'status-review',
-      'Ready for Testing': 'status-testing',
+      'Waiting On Cx Response': 'status-waiting',
       'Resolved': 'status-resolved',
       'Closed': 'status-closed'
     };
@@ -919,11 +919,11 @@ const Conversation = {
   },
 
   /**
-   * Get CSS class for Jira priority
+   * Get CSS class for ClickUp priority
    */
-  getJiraPriorityClass(priority) {
+  getClickUpPriorityClass(priority) {
     const classes = {
-      'Critical': 'priority-critical',
+      'Urgent': 'priority-urgent',
       'High': 'priority-high',
       'Medium': 'priority-medium',
       'Low': 'priority-low'
@@ -932,91 +932,91 @@ const Conversation = {
   },
 
   /**
-   * Update Jira status (bi-directional sync)
+   * Update ClickUp status (bi-directional sync)
    */
-  updateJiraStatus(jiraKey, newStatus) {
-    const jira = MockData.jiraIssues[jiraKey];
-    if (!jira) return;
+  updateClickUpStatus(clickUpKey, newStatus) {
+    const clickUp = MockData.clickUpIssues[clickUpKey];
+    if (!clickUp) return;
 
-    const oldStatus = jira.status;
-    jira.status = newStatus;
-    jira.updated = new Date().toISOString();
+    const oldStatus = clickUp.status;
+    clickUp.status = newStatus;
+    clickUp.updated = new Date().toISOString();
 
     // Add comment about status change
-    if (!jira.comments) jira.comments = [];
-    jira.comments.push({
-      id: `jc-${Date.now()}`,
-      author: 'Agent Mike',
+    if (!clickUp.comments) clickUp.comments = [];
+    clickUp.comments.push({
+      id: `cc-${Date.now()}`,
+      author: 'Harsha G',
       timestamp: new Date().toISOString(),
       content: `Status changed from "${oldStatus}" to "${newStatus}"`
     });
 
     // Sync back to ticket timeline
-    if (this.currentTicket && jira.linkedTicket === this.currentTicket.id) {
+    if (this.currentTicket && clickUp.linkedTicket === this.currentTicket.id) {
       MockData.timelines[this.currentTicket.id].push({
         id: `msg-${Date.now()}`,
         type: 'system',
-        channel: 'jira',
+        channel: 'clickup',
         timestamp: new Date().toISOString(),
-        content: `Jira ${jiraKey} status changed: ${oldStatus} → ${newStatus}`,
-        jiraStatus: newStatus
+        content: `ClickUp ${clickUpKey} status changed: ${oldStatus} → ${newStatus}`,
+        clickUpStatus: newStatus
       });
 
-      // Update ticket status based on Jira
+      // Update ticket status based on ClickUp
       if (newStatus === 'Resolved' || newStatus === 'Closed') {
         this.currentTicket.status = 'resolved';
-      } else if (newStatus === 'Ready for Testing') {
-        this.currentTicket.status = 'open'; // Returns to agent queue
+      } else if (newStatus === 'Waiting On Cx Response') {
+        this.currentTicket.status = 'waiting';
       }
 
       this.currentTicket.updatedAt = new Date().toISOString();
     }
 
     // Refresh UI
-    this.showJiraPanel(jiraKey);
+    this.showClickUpPanel(clickUpKey);
     this.renderTimeline(MockData.timelines[this.currentTicket?.id] || []);
     Inbox.render();
 
-    Utils.showToast(`Jira ${jiraKey} updated to "${newStatus}"`, 'success');
+    Utils.showToast(`ClickUp ${clickUpKey} updated to "${newStatus}"`, 'success');
   },
 
   /**
-   * Add comment to Jira issue
+   * Add comment to ClickUp task
    */
-  addJiraComment(jiraKey, content) {
-    const jira = MockData.jiraIssues[jiraKey];
-    if (!jira) return;
+  addClickUpComment(clickUpKey, content) {
+    const clickUp = MockData.clickUpIssues[clickUpKey];
+    if (!clickUp) return;
 
-    if (!jira.comments) jira.comments = [];
-    jira.comments.push({
-      id: `jc-${Date.now()}`,
-      author: 'Agent Mike',
+    if (!clickUp.comments) clickUp.comments = [];
+    clickUp.comments.push({
+      id: `cc-${Date.now()}`,
+      author: 'Harsha G',
       timestamp: new Date().toISOString(),
       content: content
     });
 
-    jira.updated = new Date().toISOString();
+    clickUp.updated = new Date().toISOString();
 
     // Sync to ticket timeline
-    if (this.currentTicket && jira.linkedTicket === this.currentTicket.id) {
+    if (this.currentTicket && clickUp.linkedTicket === this.currentTicket.id) {
       MockData.timelines[this.currentTicket.id].push({
         id: `msg-${Date.now()}`,
         type: 'system',
-        channel: 'jira',
+        channel: 'clickup',
         timestamp: new Date().toISOString(),
-        content: `Comment added to Jira ${jiraKey}: "${Utils.truncate(content, 50)}"`,
-        jiraStatus: jira.status
+        content: `Comment added to ClickUp ${clickUpKey}: "${Utils.truncate(content, 50)}"`,
+        clickUpStatus: clickUp.status
       });
 
       this.currentTicket.updatedAt = new Date().toISOString();
       this.renderTimeline(MockData.timelines[this.currentTicket.id]);
     }
 
-    // Refresh Jira panel
-    this.showJiraPanel(jiraKey);
+    // Refresh ClickUp panel
+    this.showClickUpPanel(clickUpKey);
     Inbox.render();
 
-    Utils.showToast('Comment added to Jira', 'success');
+    Utils.showToast('Comment added to ClickUp', 'success');
   },
 
   /**
@@ -1085,7 +1085,7 @@ const Conversation = {
       type: 'message',
       channel: replyChannel.value,
       sender: 'agent',
-      senderName: 'Agent Mike',
+      senderName: 'Harsha G',
       timestamp: new Date().toISOString(),
       content: content
     };
@@ -1128,9 +1128,9 @@ const Conversation = {
   },
 
   /**
-   * Show Jira creation modal
+   * Show ClickUp creation modal
    */
-  showJiraModal() {
+  showClickUpModal() {
     if (!this.currentTicket) return;
 
     const modal = document.getElementById('modal-overlay');
@@ -1138,33 +1138,33 @@ const Conversation = {
     const modalBody = document.getElementById('modal-body');
     const modalFooter = document.getElementById('modal-footer');
 
-    modalTitle.textContent = 'Create Jira Issue';
+    modalTitle.textContent = 'Create ClickUp Task';
     modalBody.innerHTML = `
       <div class="form-group">
         <label class="form-label">Summary</label>
-        <input type="text" class="form-input" id="jira-summary"
+        <input type="text" class="form-input" id="clickup-summary"
                value="${Utils.escapeHtml(this.currentTicket.subject)}">
       </div>
       <div class="form-group">
         <label class="form-label">Description</label>
-        <textarea class="form-textarea" id="jira-description">Ticket: ${this.currentTicket.id}
+        <textarea class="form-textarea" id="clickup-description">Ticket: ${this.currentTicket.id}
 Customer: ${MockData.customers[this.currentTicket.customerId]?.name}
 
 [Context from conversation will be included]</textarea>
       </div>
       <div class="form-group">
-        <label class="form-label">Assignee Team</label>
-        <select class="form-select" id="jira-team">
-          <option value="platform">Platform Team</option>
-          <option value="cloudops">Cloud Ops Team</option>
-          <option value="backend">Backend Team</option>
+        <label class="form-label">L3 Team</label>
+        <select class="form-select" id="clickup-team">
+          <option value="Admirals">Admirals</option>
+          <option value="Backend Team">Backend Team</option>
+          <option value="Frontend Team">Frontend Team</option>
         </select>
       </div>
     `;
 
     modalFooter.innerHTML = `
       <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
-      <button class="btn btn-primary" id="modal-confirm">Create Issue</button>
+      <button class="btn btn-primary" id="modal-confirm">Create Task</button>
     `;
 
     modal.style.display = 'flex';
@@ -1173,37 +1173,43 @@ Customer: ${MockData.customers[this.currentTicket.customerId]?.name}
     document.getElementById('modal-cancel').onclick = () => modal.style.display = 'none';
     document.getElementById('modal-close').onclick = () => modal.style.display = 'none';
     document.getElementById('modal-confirm').onclick = () => {
-      const summary = document.getElementById('jira-summary').value;
-      const jiraKey = `ENG-${Math.floor(Math.random() * 1000) + 4500}`;
+      const summary = document.getElementById('clickup-summary').value;
+      const clickUpKey = `86d${Math.random().toString(36).substring(2, 8)}`;
 
-      // Add Jira to mock data
-      MockData.jiraIssues[jiraKey] = {
-        key: jiraKey,
+      // Add ClickUp to mock data
+      MockData.clickUpIssues[clickUpKey] = {
+        key: clickUpKey,
         summary: summary,
         status: 'Open',
-        assignee: document.getElementById('jira-team').value,
+        priority: 'Medium',
+        type: 'Bug',
+        assignee: document.getElementById('clickup-team').value,
+        reporter: 'Harsha G',
         created: new Date().toISOString(),
-        updated: new Date().toISOString()
+        updated: new Date().toISOString(),
+        linkedTicket: this.currentTicket.id,
+        labels: [],
+        comments: []
       };
 
       // Link to ticket
-      this.currentTicket.linkedJira = jiraKey;
-      this.currentTicket.channels.push('jira');
+      this.currentTicket.linkedClickUp = clickUpKey;
+      this.currentTicket.channels.push('clickup');
 
       // Add system message
       MockData.timelines[this.currentTicket.id].push({
         id: `msg-${Date.now()}`,
         type: 'system',
-        channel: 'jira',
+        channel: 'clickup',
         timestamp: new Date().toISOString(),
-        content: `Jira issue ${jiraKey} created: "${summary}"`,
-        jiraStatus: 'Open'
+        content: `ClickUp task ${clickUpKey} created: "${summary}"`,
+        clickUpStatus: 'Open'
       });
 
       modal.style.display = 'none';
       this.loadTicket(this.currentTicket.id);
       Inbox.render();
-      Utils.showToast(`Jira issue ${jiraKey} created`, 'success');
+      Utils.showToast(`ClickUp task ${clickUpKey} created`, 'success');
     };
   },
 

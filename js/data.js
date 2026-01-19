@@ -1,833 +1,857 @@
 /**
  * Mock Data for Hiver Omnichannel Prototype
- * Cyara-specific scenarios: IVR testing, chatbot validation, voice quality
+ * Hiver Support scenarios: Email sync issues, shared inbox, performance
  */
 
 const MockData = {
-  // Customers - Enterprise companies using Cyara
+  // Customers - Hiver customers
   customers: {
     'cust-1': {
       id: 'cust-1',
-      name: 'Rachel Morrison',
-      email: 'rachel.morrison@unitedhealth.com',
-      company: 'UnitedHealth Group',
-      tier: 'enterprise',
-      avatar: 'RM',
-      slackChannel: '#unitedhealth-support',
+      name: 'Nikki Sterling',
+      email: 'nikki.s@ulstrucking.com',
+      company: 'UL Strucking',
+      tier: 'trial',
+      avatar: 'NS',
+      slackChannel: '#hiver-escalations',
       // Account Information
       account: {
-        mrr: 125000,
-        arr: 1500000,
-        healthScore: 92,
-        healthTrend: 'up',
-        contractStart: '2023-03-15',
-        contractEnd: '2026-03-14',
-        supportPlan: 'Premium 24/7',
-        csm: 'Sarah Johnson',
-        totalTickets: 47,
-        avgResolutionTime: '4.2 hours',
-        npsScore: 72,
-        lastActivity: '2025-01-16',
-        products: ['Pulse', 'Cruncher', 'Velocity', 'ResolveAI'],
-        seats: 250
+        mrr: 0,
+        arr: 0,
+        healthScore: 72,
+        healthTrend: 'down',
+        contractStart: '2026-01-10',
+        contractEnd: '2026-02-10',
+        supportPlan: 'Trial',
+        csm: 'Karun Kumar',
+        totalTickets: 19,
+        avgResolutionTime: '8.2 hours',
+        npsScore: 45,
+        lastActivity: '2026-01-19',
+        products: ['Shared Inbox', 'Email Management'],
+        seats: 12,
+        smid: '307963',
+        ug: '355349'
       }
     },
     'cust-2': {
       id: 'cust-2',
-      name: 'James Chen',
-      email: 'james.chen@capitalone.com',
-      company: 'Capital One',
-      tier: 'enterprise',
-      avatar: 'JC',
-      slackChannel: '#capitalone-vip',
+      name: 'Gunnar Petersen',
+      email: 'gm@puevit.com',
+      company: 'Puevit',
+      tier: 'pro',
+      avatar: 'GP',
+      slackChannel: '#hiver-support',
       // Account Information
       account: {
-        mrr: 95000,
-        arr: 1140000,
-        healthScore: 88,
+        mrr: 450,
+        arr: 5400,
+        healthScore: 85,
         healthTrend: 'stable',
-        contractStart: '2022-08-01',
-        contractEnd: '2025-07-31',
-        supportPlan: 'Premium 24/7',
-        csm: 'Michael Brown',
-        totalTickets: 32,
-        avgResolutionTime: '3.8 hours',
+        contractStart: '2025-06-01',
+        contractEnd: '2026-05-31',
+        supportPlan: 'Business Hours',
+        csm: 'Basit',
+        totalTickets: 8,
+        avgResolutionTime: '4.5 hours',
         npsScore: 68,
-        lastActivity: '2025-01-16',
-        products: ['Pulse', 'Velocity'],
-        seats: 180
+        lastActivity: '2026-01-19',
+        products: ['Shared Inbox', 'Live Chat'],
+        seats: 25
       }
     },
     'cust-3': {
       id: 'cust-3',
-      name: 'Amanda Foster',
-      email: 'amanda.foster@verizon.com',
-      company: 'Verizon Communications',
+      name: 'Abhinav Sharma',
+      email: 'abhinav@bayzat.com',
+      company: 'Bayzat',
       tier: 'enterprise',
-      avatar: 'AF',
-      slackChannel: '#verizon-cx-team',
+      avatar: 'AS',
+      slackChannel: '#bayzat-vip',
       // Account Information
       account: {
-        mrr: 185000,
-        arr: 2220000,
-        healthScore: 78,
-        healthTrend: 'down',
-        contractStart: '2023-06-01',
-        contractEnd: '2025-05-31',
+        mrr: 2500,
+        arr: 30000,
+        healthScore: 91,
+        healthTrend: 'up',
+        contractStart: '2025-01-01',
+        contractEnd: '2026-12-31',
         supportPlan: 'Premium 24/7',
-        csm: 'Sarah Johnson',
-        totalTickets: 89,
-        avgResolutionTime: '6.1 hours',
-        npsScore: 54,
-        lastActivity: '2025-01-16',
-        products: ['Pulse', 'Cruncher', 'Velocity', 'ResolveAI'],
-        seats: 450
+        csm: 'Basit',
+        totalTickets: 15,
+        avgResolutionTime: '2.8 hours',
+        npsScore: 82,
+        lastActivity: '2026-01-19',
+        products: ['Shared Inbox', 'Live Chat', 'Analytics'],
+        seats: 150
       }
     },
     'cust-4': {
       id: 'cust-4',
-      name: 'David Kumar',
-      email: 'david.kumar@nationwide.com',
-      company: 'Nationwide Insurance',
+      name: 'Leonardo Martinez',
+      email: 'leonardo@techfirm.com',
+      company: 'Tech Firm Inc',
       tier: 'pro',
-      avatar: 'DK',
+      avatar: 'LM',
       slackChannel: null,
       // Account Information
       account: {
-        mrr: 28000,
-        arr: 336000,
-        healthScore: 85,
-        healthTrend: 'up',
-        contractStart: '2024-01-15',
-        contractEnd: '2026-01-14',
+        mrr: 299,
+        arr: 3588,
+        healthScore: 78,
+        healthTrend: 'stable',
+        contractStart: '2025-09-15',
+        contractEnd: '2026-09-14',
         supportPlan: 'Business Hours',
-        csm: 'Emily Davis',
-        totalTickets: 12,
-        avgResolutionTime: '8.5 hours',
-        npsScore: 65,
-        lastActivity: '2025-01-16',
-        products: ['Velocity'],
-        seats: 50
+        csm: 'Harsha',
+        totalTickets: 5,
+        avgResolutionTime: '6.2 hours',
+        npsScore: 62,
+        lastActivity: '2026-01-18',
+        products: ['Shared Inbox'],
+        seats: 15
       }
     },
     'cust-5': {
       id: 'cust-5',
-      name: 'Michelle Torres',
-      email: 'michelle.t@regional-bank.com',
-      company: 'Regional Bank Corp',
+      name: 'George Williams',
+      email: 'george@somersetcountyesc.org',
+      company: 'Somerset County ESC',
       tier: 'pro',
-      avatar: 'MT',
+      avatar: 'GW',
       slackChannel: null,
       // Account Information
       account: {
-        mrr: 15000,
-        arr: 180000,
-        healthScore: 91,
-        healthTrend: 'stable',
-        contractStart: '2024-06-01',
-        contractEnd: '2025-05-31',
+        mrr: 199,
+        arr: 2388,
+        healthScore: 88,
+        healthTrend: 'up',
+        contractStart: '2025-08-01',
+        contractEnd: '2026-07-31',
         supportPlan: 'Business Hours',
-        csm: 'Emily Davis',
-        totalTickets: 8,
-        avgResolutionTime: '5.2 hours',
-        npsScore: 78,
-        lastActivity: '2025-01-16',
-        products: ['ResolveAI'],
-        seats: 25
+        csm: 'Harsha',
+        totalTickets: 3,
+        avgResolutionTime: '5.1 hours',
+        npsScore: 75,
+        lastActivity: '2026-01-17',
+        products: ['Shared Inbox', 'Email Templates'],
+        seats: 8
       }
     }
   },
 
-  // Tickets - Cyara-specific support scenarios
+  // Tickets - Hiver support scenarios
   tickets: [
     {
-      id: 'TKT-2847',
+      id: 'TKT-38495',
       customerId: 'cust-1',
-      subject: 'IVR test suite failing after Genesys Cloud migration',
-      preview: 'Our automated IVR tests for the claims hotline are returning "no audio detected" errors after migrating to Genesys Cloud...',
+      subject: 'Emails not loading until refresh | ulstrucking.com | Performance issue',
+      preview: 'New emails are not automatically appearing in a custom view within a shared mailbox. Need to refresh the page frequently...',
       status: 'open',
-      priority: 'high',
-      tier: 2,
+      priority: 'urgent',
+      tier: 1,
       channel: 'email',
-      channels: ['email', 'slack', 'jira'],
-      createdAt: '2025-01-16T09:30:00Z',
-      updatedAt: '2025-01-16T14:22:00Z',
+      channels: ['email', 'slack', 'clickup'],
+      createdAt: '2026-01-14T10:48:00Z',
+      updatedAt: '2026-01-19T08:30:00Z',
       unread: true,
-      tags: ['ivr', 'genesys', 'audio-detection', 'migration'],
-      linkedJira: 'ENG-4521',
+      tags: ['admirals', 'cart', 'views', 'performance'],
+      linkedClickUp: '86d1jx5af',
       linkedSlack: true,
-      assignee: 'agent-mike'
+      assignee: 'agent-harsha',
+      conversationId: '260105964',
+      issueType: 'Views'
     },
     {
-      id: 'TKT-2848',
-      customerId: 'cust-2',
-      subject: 'Pulse bot testing - how to validate NLU intents?',
-      preview: 'We need guidance on setting up intent validation for our new virtual assistant. The bot responses are inconsistent...',
+      id: 'TKT-38493',
+      customerId: 'cust-3',
+      subject: 'Chat transcript not syncing to email thread',
+      preview: 'When a live chat ends, the transcript is not being appended to the original email conversation...',
       status: 'open',
-      priority: 'medium',
+      priority: 'high',
       tier: 1,
       channel: 'chat',
       channels: ['chat', 'email'],
-      createdAt: '2025-01-16T11:15:00Z',
-      updatedAt: '2025-01-16T13:45:00Z',
+      createdAt: '2026-01-18T13:15:00Z',
+      updatedAt: '2026-01-19T09:45:00Z',
       unread: true,
-      tags: ['chatbot', 'pulse', 'nlu', 'how-to'],
-      linkedJira: null,
+      tags: ['l1-chat', 'managed', 'transcript'],
+      linkedClickUp: null,
       linkedSlack: false,
-      assignee: 'agent-mike'
+      assignee: 'agent-basit'
     },
     {
-      id: 'TKT-2849',
-      customerId: 'cust-3',
-      subject: 'Voice quality degradation in Cruncher load tests',
-      preview: 'Running 500 concurrent call tests and seeing MOS scores drop below 3.5 after 200 calls. Need help identifying bottleneck...',
+      id: 'TKT-38490',
+      customerId: 'cust-2',
+      subject: 'Gmail History Fetch Stuck for User',
+      preview: 'One of our team members cannot see emails older than last week. Gmail history fetch seems to be stuck...',
       status: 'waiting',
       priority: 'high',
-      tier: 3,
-      channel: 'phone',
-      channels: ['phone', 'email', 'slack', 'jira'],
-      createdAt: '2025-01-15T16:00:00Z',
-      updatedAt: '2025-01-16T10:30:00Z',
+      tier: 2,
+      channel: 'email',
+      channels: ['email', 'clickup'],
+      createdAt: '2026-01-17T08:00:00Z',
+      updatedAt: '2026-01-18T14:30:00Z',
       unread: false,
-      tags: ['cruncher', 'load-testing', 'voice-quality', 'mos'],
-      linkedJira: 'ENG-4518',
-      linkedSlack: true,
-      assignee: 'agent-mike'
+      tags: ['gmail', 'fetch', 'sync', 'l2-bug'],
+      linkedClickUp: '86d1kx7bg',
+      linkedSlack: false,
+      assignee: 'agent-basit'
     },
     {
-      id: 'TKT-2850',
+      id: 'TKT-38488',
       customerId: 'cust-4',
-      subject: 'Velocity scheduled tests not triggering',
-      preview: 'Set up hourly IVR monitoring via Velocity but tests havent run in 3 days. Dashboard shows "scheduled" but no executions...',
+      subject: 'Chat widget not appearing on website',
+      preview: 'We installed the Hiver chat widget code but it is not showing up on our website. Checked console for errors...',
       status: 'open',
       priority: 'medium',
-      tier: 1,
+      tier: 0,
+      channel: 'chat',
+      channels: ['chat'],
+      createdAt: '2026-01-19T07:30:00Z',
+      updatedAt: '2026-01-19T07:30:00Z',
+      unread: true,
+      tags: ['chat-widget', 'installation', 'how-to'],
+      linkedClickUp: null,
+      linkedSlack: false,
+      assignee: 'agent-harsha'
+    },
+    {
+      id: 'TKT-38485',
+      customerId: 'cust-5',
+      subject: 'Automation rule not triggering for specific tag',
+      preview: 'We set up an automation to assign emails with "urgent" tag to a specific team member but it is not working...',
+      status: 'open',
+      priority: 'medium',
+      tier: 0,
       channel: 'email',
       channels: ['email'],
-      createdAt: '2025-01-16T08:00:00Z',
-      updatedAt: '2025-01-16T08:00:00Z',
-      unread: true,
-      tags: ['velocity', 'scheduling', 'monitoring'],
-      linkedJira: null,
-      linkedSlack: false,
-      assignee: 'agent-mike'
-    },
-    {
-      id: 'TKT-2851',
-      customerId: 'cust-5',
-      subject: 'ResolveAI transcription accuracy issues',
-      preview: 'Agent desktop showing incorrect transcriptions for Spanish language calls. Affects our bilingual support quality metrics...',
-      status: 'open',
-      priority: 'medium',
-      tier: 2,
-      channel: 'chat',
-      channels: ['chat', 'email'],
-      createdAt: '2025-01-16T07:30:00Z',
-      updatedAt: '2025-01-16T09:15:00Z',
+      createdAt: '2026-01-18T15:00:00Z',
+      updatedAt: '2026-01-18T15:00:00Z',
       unread: false,
-      tags: ['resolveai', 'transcription', 'spanish', 'accuracy'],
-      linkedJira: null,
+      tags: ['automation', 'rules', 'tags'],
+      linkedClickUp: null,
       linkedSlack: false,
-      assignee: 'agent-mike'
+      assignee: 'agent-harsha'
     }
   ],
 
-  // Conversation timelines - Cyara product-specific discussions
+  // Conversation timelines - Hiver support discussions
   timelines: {
-    'TKT-2847': [
+    'TKT-38495': [
       {
         id: 'msg-1',
         type: 'message',
         channel: 'email',
         sender: 'customer',
-        senderName: 'Rachel Morrison',
-        timestamp: '2025-01-16T09:30:00Z',
-        content: `Hi Cyara Support,
+        senderName: 'Nikki Sterling',
+        timestamp: '2026-01-14T10:48:00Z',
+        content: `Hi Hiver Support,
 
-We completed our migration from Avaya to Genesys Cloud last weekend, and now our entire IVR test suite is failing.
+We're experiencing a frustrating issue where new emails are not automatically appearing in a custom view within our shared mailbox. Our team needs to manually refresh the page frequently to see incoming emails.
 
-Error: "No audio detected within timeout period (30s)"
+This is affecting all users on our Hiver account (12 people). The issue started about 3 days ago.
 
-This affects all 47 test cases in our Claims Hotline journey. The same tests worked perfectly before migration. We've verified:
-- SIP trunk connectivity is fine (manual calls work)
-- Audio files play correctly in Genesys
-- Cyara agent endpoints are reachable
+Details:
+- Affected user: nikki.s@ulstrucking.com
+- Account: csrteam@ulstrucking.com (SMID: 307963)
+- All users on the account are experiencing the same behavior
 
-Our go-live for the new system is in 5 days. This is critical for us.
+This is impacting our response times significantly as we're a trucking logistics company and need to respond to customer inquiries quickly.
 
-Best regards,
-Rachel Morrison
-CX Quality Lead, UnitedHealth Group`
+Can you please look into this urgently?
+
+Thanks,
+Nikki Sterling
+Customer Service Lead, UL Strucking`
       },
       {
         id: 'msg-2',
         type: 'message',
         channel: 'email',
         sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T09:45:00Z',
-        content: `Hi Rachel,
+        senderName: 'Harsha G',
+        timestamp: '2026-01-14T11:15:00Z',
+        content: `Hi Nikki,
 
-Thank you for the detailed information. I understand the urgency with your go-live timeline.
+Thank you for reaching out and for the detailed information. I understand how critical timely email visibility is for your logistics operations.
 
-The "no audio detected" error after a CCaaS migration typically points to one of these causes:
-1. Codec mismatch between Genesys and Cyara
-2. RTP port range changes
-3. NAT/firewall rules blocking media streams
+I'm looking into this issue for you. A few clarifying questions:
 
-Can you confirm:
-1. Which codecs are configured in your Genesys trunk? (G.711 μ-law, G.729, etc.)
-2. Are you using Cyara Cloud or on-premise agents?
-3. Any firewall changes made during migration?
+1. Is this happening in all shared mailbox views or just specific custom views?
+2. Are you using the Hiver Chrome extension or the web app?
+3. Have there been any recent changes to your Gmail settings or browser?
 
-I'm escalating this to Tier 2 for deeper technical investigation.
+In the meantime, I'm escalating this to our L1 technical team for deeper investigation.
 
-Best,
-Mike
-Cyara Support`
+Best regards,
+Harsha G
+Hiver Support (L0)`
       },
       {
         id: 'msg-3',
         type: 'system',
         channel: 'system',
-        timestamp: '2025-01-16T10:00:00Z',
-        content: 'Ticket escalated to Tier 2 (Technical Investigation - Networking)'
+        timestamp: '2026-01-14T11:20:00Z',
+        content: 'Ticket escalated to L1 (Technical Support)'
       },
       {
         id: 'msg-4',
         type: 'message',
-        channel: 'slack',
+        channel: 'email',
         sender: 'customer',
-        senderName: 'Rachel Morrison',
-        timestamp: '2025-01-16T10:15:00Z',
-        content: `Hey Mike - quick Slack update. Our network team just confirmed they changed the RTP port range to 16384-32767 for Genesys. The old Avaya range was 10000-20000. Could that be causing the issue with Cyara agents?`,
-        isSlackThread: true
+        senderName: 'Nikki Sterling',
+        timestamp: '2026-01-14T14:30:00Z',
+        content: `Hi Harsha,
+
+Thanks for the quick response! To answer your questions:
+
+1. It's happening specifically in our custom views (we have views filtered by tags like "urgent", "shipping", "billing"). The Primary inbox seems to load faster.
+2. We're using the Hiver Chrome extension (latest version)
+3. No recent changes that I'm aware of
+
+Also, I recorded a short video showing the issue - you can see a 15-20 second delay before new emails appear in the custom view.
+
+Video link: https://www.loom.com/share/ulstrucking-hiver-delay
+
+Looking forward to your findings.
+
+Thanks,
+Nikki`
       },
       {
         id: 'msg-5',
         type: 'message',
         channel: 'slack',
+        sender: 'agent',
+        senderName: 'Harsha G',
+        timestamp: '2026-01-15T09:00:00Z',
+        content: `@Shankar @Akash Sinha - Need your input on this ulstrucking.com case. Customer is experiencing delayed email loading in custom views. They shared a video showing 15-20 second delays.
+
+Key details:
+- Trial customer (12 seats)
+- SMID: 307963
+- Issue affects all users on the account
+- Custom views specifically affected, Primary inbox loads faster
+
+The customer has a call scheduled today at 12 PM PST to discuss. Can we prioritize investigating this?`,
+        isSlackThread: true
+      },
+      {
+        id: 'msg-6',
+        type: 'message',
+        channel: 'slack',
         sender: 'internal',
-        senderName: 'Senior Engineer (Tom)',
-        timestamp: '2025-01-16T10:25:00Z',
-        content: `@mike That's likely the issue. Their Cyara agent config probably still has the old port range. I'll check their tenant settings.`,
+        senderName: 'Akash Sinha',
+        timestamp: '2026-01-15T09:15:00Z',
+        content: `@Harsha G Thanks for flagging. I'll take a look at the backend logs for this account. The custom view delay pattern typically indicates one of two things:
+1. High volume of conversations in the filtered view
+2. Complex filter conditions causing slow query execution
+
+Let me pull up their account metrics and get back to you before the call.`,
         isSlackThread: true,
         isInternal: true
       },
       {
-        id: 'msg-6',
-        type: 'system',
-        channel: 'jira',
-        timestamp: '2025-01-16T10:30:00Z',
-        content: 'Jira issue ENG-4521 created: "UnitedHealth - RTP port mismatch after Genesys migration"',
-        jiraStatus: 'In Progress'
-      },
-      {
         id: 'msg-7',
         type: 'message',
-        channel: 'email',
-        sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T11:00:00Z',
-        content: `Hi Rachel,
+        channel: 'slack',
+        sender: 'internal',
+        senderName: 'Shankar',
+        timestamp: '2026-01-15T09:30:00Z',
+        content: `@Harsha G Good escalation. This is a trial customer - we should prioritize this as it could impact conversion.
 
-Excellent catch on the RTP ports! Your Slack message about the port range change was exactly what we needed.
-
-Our engineering team confirmed that your Cyara agent configuration was still using the Avaya port range (10000-20000). We've updated it to match Genesys (16384-32767).
-
-Can you re-run a few test cases from your Claims Hotline suite and confirm if audio detection is working now?
-
-I've also created engineering ticket ENG-4521 to track this and ensure we document the fix for future migrations.
-
-Best,
-Mike`
+@Jagatdeep @Sushil - FYI, this might be related to the views performance issue we discussed last sprint. Can you check if this account falls into the affected cohort?`,
+        isSlackThread: true,
+        isInternal: true
       },
       {
         id: 'msg-8',
         type: 'message',
         channel: 'slack',
-        sender: 'customer',
-        senderName: 'Rachel Morrison',
-        timestamp: '2025-01-16T14:22:00Z',
-        content: `Tests are passing now! 🎉 All 47 test cases green. You just saved our go-live. Thank you!!`,
-        isSlackThread: true
+        sender: 'internal',
+        senderName: 'Jagatdeep',
+        timestamp: '2026-01-15T10:00:00Z',
+        content: `@Shankar Looking at the account now. They have 8 custom views with fairly complex filter conditions. The "Shipping" view alone has 4500+ conversations which is contributing to the slow load times.
+
+This is expected behavior for high-volume custom views. We have an optimization planned for Q1 that should address this.
+
+@Sushil - thoughts on providing any interim workaround?`,
+        isSlackThread: true,
+        isInternal: true
       },
       {
         id: 'msg-9',
+        type: 'message',
+        channel: 'slack',
+        sender: 'internal',
+        senderName: 'Sushil',
+        timestamp: '2026-01-15T10:30:00Z',
+        content: `@Jagatdeep For now, we can suggest:
+1. Breaking down large views into smaller, date-bounded views
+2. Using simpler filter conditions where possible
+3. Archiving old conversations to reduce view size
+
+These are workarounds until the optimization ships. @Harsha G - can you communicate this to the customer during the call?`,
+        isSlackThread: true,
+        isInternal: true
+      },
+      {
+        id: 'msg-10',
         type: 'system',
-        channel: 'jira',
-        timestamp: '2025-01-16T14:22:00Z',
-        content: 'Jira ENG-4521 updated: Resolution confirmed - RTP port configuration updated',
-        jiraStatus: 'Ready for Testing'
+        channel: 'clickup',
+        timestamp: '2026-01-15T11:00:00Z',
+        content: 'ClickUp task 86d1jx5af created: "Emails not loading until refresh | ulstrucking.com | Trial | Active"',
+        clickUpStatus: 'Open'
+      },
+      {
+        id: 'msg-11',
+        type: 'message',
+        channel: 'email',
+        sender: 'agent',
+        senderName: 'Aishwarya Uppal',
+        timestamp: '2026-01-16T02:03:00Z',
+        content: `Hey Nikki,
+
+Thank you so much for sharing the video with me - I completely understand how even minor delays can impact your day-to-day workflow.
+
+That being said, from a technical standpoint, this behaviour is expected and aligns with how Gmail and Hiver function together. Your Primary inbox loads almost instantly because it is rendered natively by Gmail and typically contains a relatively smaller dataset for now.
+
+The shared inbox, on the other hand, is linked to the Hiver extension and is currently holding a much higher volume of conversations. When you access it, Hiver fetches and overlays additional metadata on top of Gmail's data via Gmail APIs - including assignment, tags, automation context, and the activity panel.
+
+This additional API processing and UI rendering can result in a short delay of a few seconds, particularly for high-traffic shared inboxes. This delay does not indicate a performance issue or degradation but is a byproduct of the additional data being queried and rendered at the time the shared inbox is loaded.
+
+Since your network speed is much more stable now, I'd request you to keep an eye out for any consistent or extended delays beyond what you're currently experiencing.
+
+Best regards,
+Aishwarya Uppal
+Hiver Support`
+      },
+      {
+        id: 'msg-12',
+        type: 'message',
+        channel: 'email',
+        sender: 'customer',
+        senderName: 'Nikki Sterling',
+        timestamp: '2026-01-16T12:44:00Z',
+        content: `Hi Aishwarya,
+
+Good morning! Thanks for the explanation.
+
+I think it would be best to set up a call so your team can identify the root causes of these issues. Can we please schedule a meeting for Monday 1/19 at 12:00 PM PST?
+
+Here's the Support ticket link: https://v2.hiverhq.com/permalinks/pvt/1ed34558
+
+Google Meet joining info:
+Video call link: https://meet.google.com/xxx-xxxx-xxx
+
+Thank you!
+Nikki`
+      },
+      {
+        id: 'msg-13',
+        type: 'message',
+        channel: 'slack',
+        sender: 'internal',
+        senderName: 'Saumya Rastogi',
+        timestamp: '2026-01-19T07:45:00Z',
+        content: `any response here @Harsha G?`,
+        isSlackThread: true,
+        isInternal: true
+      },
+      {
+        id: 'msg-14',
+        type: 'message',
+        channel: 'slack',
+        sender: 'agent',
+        senderName: 'Harsha G',
+        timestamp: '2026-01-19T08:00:00Z',
+        content: `@Saumya Rastogi The customer has scheduled a call at 12 PM PST. Checking with engineers to see if we can accommodate this request or re-schedule.`,
+        isSlackThread: true
+      },
+      {
+        id: 'msg-15',
+        type: 'message',
+        channel: 'slack',
+        sender: 'agent',
+        senderName: 'Harsha G',
+        timestamp: '2026-01-19T08:30:00Z',
+        content: `Rescheduling the call due to unavailability.`,
+        isSlackThread: true
       }
     ],
-    'TKT-2848': [
+    'TKT-38493': [
       {
         id: 'msg-1',
         type: 'message',
         channel: 'chat',
         sender: 'customer',
-        senderName: 'James Chen',
-        timestamp: '2025-01-16T11:15:00Z',
-        content: `Hi! We're rolling out a new virtual assistant for account balance inquiries and need help with Pulse testing. How do we validate that the bot correctly identifies customer intents?`
+        senderName: 'Abhinav Sharma',
+        timestamp: '2026-01-18T13:15:00Z',
+        content: `Hi! We're having an issue with chat transcripts not syncing to email threads. When a live chat ends, the transcript should be appended to the original email conversation but it's not happening.`
       },
       {
         id: 'msg-2',
         type: 'message',
         channel: 'chat',
         sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T11:18:00Z',
-        content: `Hi James! Great question. Pulse supports NLU intent validation through our Bot Response Assertions feature.
+        senderName: 'Basit',
+        timestamp: '2026-01-18T13:18:00Z',
+        content: `Hi Abhinav! Thanks for reaching out. I understand this is affecting your workflow.
 
-You can define expected intents and confidence thresholds for each test utterance. Would you like me to walk you through the setup?`
+Can you confirm:
+1. Is this happening for all chats or specific ones?
+2. Are the chats initiated from email threads or standalone?
+3. What browser are you using?`
       },
       {
         id: 'msg-3',
         type: 'message',
         channel: 'chat',
         sender: 'customer',
-        senderName: 'James Chen',
-        timestamp: '2025-01-16T11:20:00Z',
-        content: `Yes please! Also, this is going to be a detailed walkthrough - can we switch to email? I need to loop in our bot development team.`
+        senderName: 'Abhinav Sharma',
+        timestamp: '2026-01-18T13:22:00Z',
+        content: `1. It's happening for all chats that originate from email threads
+2. They're initiated from email threads - customer clicks chat from an existing email
+3. Chrome latest version
+
+We noticed this started happening after we updated some automation rules last week.`
       },
       {
         id: 'msg-4',
+        type: 'message',
+        channel: 'chat',
+        sender: 'agent',
+        senderName: 'Basit',
+        timestamp: '2026-01-18T13:25:00Z',
+        content: `Got it! The automation rule change is a good lead. Let me check your account settings and the automation configuration.
+
+I'll also loop in our L1 team to investigate the sync logic. Can you share a specific conversation ID where this happened so we can trace it?`
+      },
+      {
+        id: 'msg-5',
         type: 'system',
         channel: 'system',
-        timestamp: '2025-01-16T11:21:00Z',
+        timestamp: '2026-01-18T13:30:00Z',
         content: 'Conversation converted from Chat to Email for async follow-up'
       },
       {
-        id: 'msg-5',
-        type: 'message',
-        channel: 'email',
-        sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T13:45:00Z',
-        content: `Hi James,
-
-As discussed in our chat, here's a detailed guide for validating NLU intents with Pulse:
-
-**Setting Up Intent Validation:**
-
-1. Navigate to Pulse > Test Cases > Bot Responses
-2. For each test utterance, add an "Intent Assertion":
-   - Expected Intent: e.g., "CheckBalance"
-   - Confidence Threshold: Recommended 0.85 or higher
-   - Fallback Handling: Define behavior for low-confidence matches
-
-3. Configure Entity Extraction validation:
-   - Account Type: "checking" / "savings"
-   - Date Range: if applicable
-
-4. Set up Conversation Flow assertions:
-   - Expected bot responses for each intent
-   - Timeout thresholds for bot response time
-
-**Sample Test Case Structure:**
-\`\`\`
-Utterance: "What's my checking account balance?"
-Expected Intent: CheckBalance (confidence >= 0.85)
-Expected Entities: {accountType: "checking"}
-Expected Response Contains: "Your balance is"
-\`\`\`
-
-I've attached our KB article "Bot Testing Best Practices with Pulse" which includes more examples.
-
-Feel free to share with your bot development team and let me know if you have questions!
-
-Best,
-Mike`
-      }
-    ],
-    'TKT-2849': [
-      {
-        id: 'msg-1',
-        type: 'message',
-        channel: 'phone',
-        sender: 'customer',
-        senderName: 'Amanda Foster',
-        timestamp: '2025-01-15T16:00:00Z',
-        content: `[Phone Call Summary]
-Duration: 18 minutes
-Customer: Amanda Foster, Director of CX Engineering, Verizon
-
-Issue: Voice quality degradation during Cruncher load tests
-Details:
-- Running 500 concurrent call load tests
-- MOS scores dropping to 3.2-3.4 after ~200 concurrent calls
-- Target MOS is 4.0+ for production certification
-- Tests running against their Cisco UCCE platform
-- Using Cyara Cloud agents (US-East region)
-
-Urgency: Production certification deadline in 2 weeks. Cannot certify without passing load tests.`
-      },
-      {
-        id: 'msg-2',
-        type: 'system',
-        channel: 'system',
-        timestamp: '2025-01-15T16:15:00Z',
-        content: 'Ticket escalated to Tier 2 (Technical Investigation)'
-      },
-      {
-        id: 'msg-3',
-        type: 'message',
-        channel: 'email',
-        sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-15T16:30:00Z',
-        content: `Hi Amanda,
-
-Following up on our call about the MOS score degradation during load tests.
-
-To investigate the bottleneck, I need:
-1. Cruncher test execution logs from a recent failed run
-2. Your Cisco UCCE capacity specs (concurrent call limit)
-3. Network topology between Cyara agents and your UCCE cluster
-4. Time-series graph of MOS scores during the test (if available)
-
-Is the degradation:
-a) Gradual (slowly decreases as calls increase)?
-b) Sudden (drops sharply at a specific call count)?
-c) Oscillating (varies throughout the test)?
-
-This will help us identify whether it's a Cyara-side, network, or platform limitation.
-
-Best,
-Mike`
-      },
-      {
-        id: 'msg-4',
-        type: 'message',
-        channel: 'slack',
-        sender: 'customer',
-        senderName: 'Amanda Foster',
-        timestamp: '2025-01-15T17:00:00Z',
-        content: `Mike - just pulled the data. The MOS drop is sudden, happens right around 200-210 concurrent calls every time. Attached the execution logs to the email.
-
-Also, I should mention we upgraded our UCCE cluster last month from 4 to 8 nodes. Could there be a config issue with the new nodes?`,
-        isSlackThread: true
-      },
-      {
-        id: 'msg-5',
-        type: 'message',
-        channel: 'slack',
-        sender: 'internal',
-        senderName: 'CS Manager (Sarah)',
-        timestamp: '2025-01-15T17:15:00Z',
-        content: `@mike FYI Verizon is in our top 5 accounts. Their renewal is Q2 and load testing certification is a key success metric for them. Let's make sure we get the right resources on this.`,
-        isSlackThread: true,
-        isInternal: true
-      },
-      {
         id: 'msg-6',
-        type: 'system',
-        channel: 'system',
-        timestamp: '2025-01-15T17:30:00Z',
-        content: 'Ticket escalated to Tier 3 (Management/Complex Escalation)'
-      },
-      {
-        id: 'msg-7',
-        type: 'system',
-        channel: 'jira',
-        timestamp: '2025-01-16T09:00:00Z',
-        content: 'Jira issue ENG-4518 created: "Verizon - Cruncher MOS degradation at 200+ concurrent calls"',
-        jiraStatus: 'In Progress'
-      },
-      {
-        id: 'msg-8',
-        type: 'message',
-        channel: 'slack',
-        sender: 'internal',
-        senderName: 'Cloud Ops (Kevin)',
-        timestamp: '2025-01-16T10:30:00Z',
-        content: `@mike Found something interesting. The sudden drop at 200 calls aligns with when traffic starts routing to their new UCCE nodes. Looking at packet captures, seems like the new nodes have different QoS markings. Investigating further.`,
-        isSlackThread: true,
-        isInternal: true
-      },
-      {
-        id: 'msg-9',
-        type: 'system',
-        channel: 'jira',
-        timestamp: '2025-01-16T10:30:00Z',
-        content: 'Jira ENG-4518 updated: Investigating QoS marking discrepancy on new UCCE nodes',
-        jiraStatus: 'In Progress'
-      }
-    ],
-    'TKT-2850': [
-      {
-        id: 'msg-1',
         type: 'message',
         channel: 'email',
         sender: 'customer',
-        senderName: 'David Kumar',
-        timestamp: '2025-01-16T08:00:00Z',
-        content: `Hi Cyara Support,
+        senderName: 'Abhinav Sharma',
+        timestamp: '2026-01-19T09:45:00Z',
+        content: `Hi Basit,
 
-I set up automated IVR monitoring using Velocity 3 days ago. The schedule is configured for hourly execution against our Claims IVR, but I haven't seen any test runs.
+Here are 3 conversation IDs where the transcript didn't sync:
+- Conv ID: 259847123
+- Conv ID: 259852456
+- Conv ID: 259861789
 
-Dashboard shows:
-- Schedule Status: Active
-- Next Run: Always shows a time in the past
-- Last Execution: Never
-
-I've verified:
-- Test case runs fine manually
-- Schedule is enabled
-- Time zone is set correctly (EST)
-
-Is there something I'm missing in the configuration?
+All three had active email threads before the chat was initiated. Let me know what you find!
 
 Thanks,
-David Kumar
-QA Manager, Nationwide Insurance`
+Abhinav`
       }
     ],
-    'TKT-2851': [
+    'TKT-38490': [
+      {
+        id: 'msg-1',
+        type: 'message',
+        channel: 'email',
+        sender: 'customer',
+        senderName: 'Gunnar Petersen',
+        timestamp: '2026-01-17T08:00:00Z',
+        content: `Hello Hiver Support,
+
+One of our team members (sarah@puevit.com) cannot see emails older than last week in their Hiver view. When she checks Gmail directly, all emails are there, but Hiver only shows recent ones.
+
+We tried:
+- Logging out and back in
+- Clearing browser cache
+- Reinstalling the Chrome extension
+
+Nothing worked. Please help!
+
+Best,
+Gunnar`
+      },
+      {
+        id: 'msg-2',
+        type: 'message',
+        channel: 'email',
+        sender: 'agent',
+        senderName: 'Basit',
+        timestamp: '2026-01-17T08:45:00Z',
+        content: `Hi Gunnar,
+
+Thank you for the detailed troubleshooting steps you've already taken.
+
+This sounds like a Gmail history fetch issue. When a user connects to Hiver, we sync their Gmail history. Sometimes this process can get stuck.
+
+I'm escalating this to our L1 technical team to check the sync status for sarah@puevit.com and manually trigger a re-sync if needed.
+
+I'll update you within 24 hours.
+
+Best regards,
+Basit
+Hiver Support`
+      },
+      {
+        id: 'msg-3',
+        type: 'system',
+        channel: 'system',
+        timestamp: '2026-01-17T09:00:00Z',
+        content: 'Ticket escalated to L1 (Technical Support)'
+      },
+      {
+        id: 'msg-4',
+        type: 'system',
+        channel: 'clickup',
+        timestamp: '2026-01-17T09:30:00Z',
+        content: 'ClickUp task 86d1kx7bg created: "Gmail History Fetch Stuck - sarah@puevit.com"',
+        clickUpStatus: 'In Progress'
+      },
+      {
+        id: 'msg-5',
+        type: 'message',
+        channel: 'email',
+        sender: 'agent',
+        senderName: 'Basit',
+        timestamp: '2026-01-18T14:30:00Z',
+        content: `Hi Gunnar,
+
+Update from our L1 team: We identified that the Gmail history fetch for sarah@puevit.com was indeed stuck at 85% completion. Our engineering team has manually triggered a re-sync.
+
+The sync should complete within the next 2-4 hours. Please ask Sarah to check after that and confirm if she can see older emails.
+
+We're also investigating why this happened to prevent future occurrences.
+
+Best regards,
+Basit`
+      }
+    ],
+    'TKT-38488': [
       {
         id: 'msg-1',
         type: 'message',
         channel: 'chat',
         sender: 'customer',
-        senderName: 'Michelle Torres',
-        timestamp: '2025-01-16T07:30:00Z',
-        content: `Hi! We're seeing issues with ResolveAI transcription accuracy for Spanish language calls. The agent desktop shows incorrect transcriptions about 30% of the time, affecting our bilingual support QA scores.`
-      },
+        senderName: 'Leonardo Martinez',
+        timestamp: '2026-01-19T07:30:00Z',
+        content: `Hi! We just installed the Hiver chat widget on our website but it's not showing up. We followed the installation guide and added the code snippet to our website's header.`
+      }
+    ],
+    'TKT-38485': [
       {
-        id: 'msg-2',
-        type: 'message',
-        channel: 'chat',
-        sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T07:35:00Z',
-        content: `Hi Michelle! Sorry to hear about the transcription issues. A 30% error rate is definitely higher than expected.
-
-A few questions to help diagnose:
-1. Is this happening with all Spanish dialects or specific ones (Mexican, Castilian, etc.)?
-2. Are the errors mostly in specific words/phrases or random?
-3. Are you using the standard Spanish model or a custom-trained one?`
-      },
-      {
-        id: 'msg-3',
-        type: 'message',
-        channel: 'chat',
-        sender: 'customer',
-        senderName: 'Michelle Torres',
-        timestamp: '2025-01-16T07:38:00Z',
-        content: `Good questions! It's primarily Mexican Spanish speakers (our main customer base). Errors seem to cluster around financial terms - "transferencia", "saldo", "cuenta de ahorros". We're using the standard model.`
-      },
-      {
-        id: 'msg-4',
-        type: 'message',
-        channel: 'chat',
-        sender: 'agent',
-        senderName: 'Agent Mike',
-        timestamp: '2025-01-16T07:42:00Z',
-        content: `That's very helpful! The pattern with financial terms suggests the standard model may need domain-specific tuning for banking vocabulary.
-
-I'd recommend:
-1. Custom vocabulary list for financial terms
-2. Potentially a fine-tuned model for banking Spanish
-
-Let me escalate to our AI team - they can review sample transcriptions and recommend the best approach. Can you share 5-10 example call recordings where transcription failed?`
-      },
-      {
-        id: 'msg-5',
-        type: 'system',
-        channel: 'system',
-        timestamp: '2025-01-16T07:45:00Z',
-        content: 'Ticket escalated to Tier 2 (AI/ML Team)'
-      },
-      {
-        id: 'msg-6',
+        id: 'msg-1',
         type: 'message',
         channel: 'email',
         sender: 'customer',
-        senderName: 'Michelle Torres',
-        timestamp: '2025-01-16T09:15:00Z',
-        content: `Hi Mike,
+        senderName: 'George Williams',
+        timestamp: '2026-01-18T15:00:00Z',
+        content: `Hi Hiver Team,
 
-Thanks for the quick response on chat! I've uploaded 10 sample recordings to the secure file share you mentioned:
-- 5 with incorrect transcriptions (highlighted the errors)
-- 5 that transcribed correctly (for comparison)
+We set up an automation rule to assign any email with the "urgent" tag to our team lead (john@somersetcountyesc.org), but it's not working.
 
-All are Mexican Spanish, banking context. Let me know what the AI team recommends!
+Rule details:
+- Trigger: When tag "urgent" is added
+- Action: Assign to john@somersetcountyesc.org
 
-Michelle`
+We've tested by manually adding the tag, but the assignment doesn't happen automatically.
+
+Can you help us troubleshoot?
+
+Thanks,
+George Williams
+Somerset County ESC`
       }
     ]
   },
 
-  // Knowledge Base Articles - Cyara-specific
+  // Knowledge Base Articles - Hiver-specific
   kbArticles: [
     {
       id: 'kb-1',
-      title: 'Troubleshooting IVR Audio Detection Failures',
-      category: 'IVR Testing',
-      lastUpdated: '2025-01-10',
+      title: 'Troubleshooting Slow Shared Inbox Loading',
+      category: 'Performance',
+      lastUpdated: '2026-01-10',
       relevance: 95,
-      views: 2450
+      views: 3450
     },
     {
       id: 'kb-2',
-      title: 'Genesys Cloud Integration Guide',
-      category: 'Integrations',
-      lastUpdated: '2025-01-05',
-      relevance: 88,
-      views: 1890
+      title: 'Custom Views Best Practices',
+      category: 'Views',
+      lastUpdated: '2026-01-05',
+      relevance: 92,
+      views: 2890
     },
     {
       id: 'kb-3',
-      title: 'Bot Testing Best Practices with Pulse',
-      category: 'Chatbot Testing',
-      lastUpdated: '2025-01-12',
+      title: 'Gmail History Sync Issues - Troubleshooting Guide',
+      category: 'Sync',
+      lastUpdated: '2026-01-12',
       relevance: 98,
-      views: 3100
+      views: 4100
     },
     {
       id: 'kb-4',
-      title: 'Understanding MOS Scores in Cruncher',
-      category: 'Load Testing',
-      lastUpdated: '2024-12-20',
-      relevance: 92,
-      views: 1756,
-      stale: true
+      title: 'Chat Widget Installation Guide',
+      category: 'Live Chat',
+      lastUpdated: '2025-12-20',
+      relevance: 90,
+      views: 2756
     },
     {
       id: 'kb-5',
-      title: 'Velocity Scheduling Configuration',
-      category: 'Monitoring',
-      lastUpdated: '2024-11-15',
-      relevance: 90,
-      views: 1200,
-      stale: true
+      title: 'Automation Rules Setup & Troubleshooting',
+      category: 'Automation',
+      lastUpdated: '2025-12-15',
+      relevance: 88,
+      views: 2200
     },
     {
       id: 'kb-6',
-      title: 'ResolveAI Custom Vocabulary Setup',
-      category: 'AI/Transcription',
-      lastUpdated: '2025-01-08',
+      title: 'Chat Transcript Sync to Email Threads',
+      category: 'Live Chat',
+      lastUpdated: '2026-01-08',
       relevance: 85,
-      views: 945
+      views: 1945
     },
     {
       id: 'kb-7',
-      title: 'RTP Port Configuration for CCaaS Migrations',
-      category: 'Networking',
-      lastUpdated: '2025-01-14',
+      title: 'Optimizing Shared Inbox for High Volume',
+      category: 'Performance',
+      lastUpdated: '2026-01-14',
       relevance: 94,
-      views: 678
+      views: 1678
     },
     {
       id: 'kb-8',
-      title: 'NLU Intent Validation in Pulse',
-      category: 'Chatbot Testing',
-      lastUpdated: '2025-01-11',
-      relevance: 96,
-      views: 2200
+      title: 'Understanding Hiver Chrome Extension',
+      category: 'Getting Started',
+      lastUpdated: '2026-01-11',
+      relevance: 86,
+      views: 5200
     }
   ],
 
-  // Jira Issues - Cyara engineering (with full details)
-  jiraIssues: {
-    'ENG-4521': {
-      key: 'ENG-4521',
-      summary: 'UnitedHealth - RTP port mismatch after Genesys migration',
-      description: `Customer experiencing "no audio detected" errors after migrating from Avaya to Genesys Cloud.
+  // ClickUp Issues - Hiver engineering (with full details)
+  clickUpIssues: {
+    '86d1jx5af': {
+      key: '86d1jx5af',
+      summary: 'Emails not loading until refresh | ulstrucking.com | Trial | Active',
+      description: `Customer experiencing delayed email loading in custom views.
 
-**Root Cause:** RTP port range mismatch
-- Genesys config: 16384-32767
-- Cyara agent config: 10000-20000 (old Avaya range)
+**Account Details:**
+- Chat Transcript link: v2.hiverhq.com/permalinks/pvt/1ed34558
+- Email link: v2.hiverhq.com/permalinks/pvt/1ebfe56d
+- Affected user: nikki.s@ulstrucking.com
+- Affected Name/SMID: csrteam@ulstrucking.com / 307963
+- Affected UG: 355349
 
-**Resolution:** Updated Cyara agent RTP port configuration to match new Genesys range.`,
-      status: 'Ready for Testing',
-      priority: 'High',
+**Issue description:**
+The customer has reported an issue where new emails are not automatically appearing in a custom view within a shared mailbox. She needs to refresh the page frequently to see incoming emails. She also mentioned that all users on the Hiver account are experiencing the same behavior.
+
+**Investigation:**
+- 8 custom views with complex filter conditions
+- "Shipping" view has 4500+ conversations
+- Expected behavior for high-volume views, optimization planned for Q1`,
+      status: 'Open',
+      priority: 'Urgent',
       type: 'Bug',
-      assignee: 'Cloud Ops Team',
-      reporter: 'Agent Mike',
-      created: '2025-01-16T10:30:00Z',
-      updated: '2025-01-16T14:22:00Z',
-      linkedTicket: 'TKT-2847',
-      labels: ['migration', 'genesys', 'rtp', 'audio'],
+      assignee: 'Admirals',
+      reporter: 'Harsha G',
+      created: '2026-01-15T11:00:00Z',
+      updated: '2026-01-19T08:30:00Z',
+      linkedTicket: 'TKT-38495',
+      labels: ['admirals', 'cart', 'views', 'performance', 'trial'],
       comments: [
         {
-          id: 'jc-1',
-          author: 'Agent Mike',
-          timestamp: '2025-01-16T10:30:00Z',
-          content: 'Created from support ticket TKT-2847. Customer has go-live in 5 days - urgent.'
+          id: 'cc-1',
+          author: 'Karun Kumar',
+          timestamp: '2026-01-16T09:45:00Z',
+          content: 'Changed status from Open to Waiting On Cx Response'
         },
         {
-          id: 'jc-2',
-          author: 'Tom (Senior Engineer)',
-          timestamp: '2025-01-16T10:45:00Z',
-          content: 'Confirmed RTP port mismatch. Customer Slack thread mentioned they changed ports during migration. Updating agent config now.'
+          id: 'cc-2',
+          author: 'Karun Kumar',
+          timestamp: '2026-01-16T09:45:00Z',
+          content: 'Added task to Admirals Sprint 1 (1/6 - 1/19)'
         },
         {
-          id: 'jc-3',
-          author: 'Tom (Senior Engineer)',
-          timestamp: '2025-01-16T11:15:00Z',
-          content: 'Config updated. Pushed to production. Customer should re-test.'
+          id: 'cc-3',
+          author: 'Saumya Rastogi',
+          timestamp: '2026-01-19T07:45:00Z',
+          content: 'any response here @Harsha G?'
         },
         {
-          id: 'jc-4',
-          author: 'Agent Mike',
-          timestamp: '2025-01-16T14:22:00Z',
-          content: 'Customer confirmed all 47 test cases passing. Moving to Ready for Testing for QA verification.'
+          id: 'cc-4',
+          author: 'Harsha G',
+          timestamp: '2026-01-19T08:00:00Z',
+          content: '@Saumya Rastogi The customer has scheduled a call at 12 PM PST. Checking with engineers to see if we can accommodate this request or re-schedule.'
+        },
+        {
+          id: 'cc-5',
+          author: 'Harsha G',
+          timestamp: '2026-01-19T08:30:00Z',
+          content: 'Rescheduling the call due to unavailability.'
         }
       ]
     },
-    'ENG-4518': {
-      key: 'ENG-4518',
-      summary: 'Verizon - Cruncher MOS degradation at 200+ concurrent calls',
-      description: `Customer running 500 concurrent call load tests. MOS scores drop below 3.5 after ~200 calls.
+    '86d1kx7bg': {
+      key: '86d1kx7bg',
+      summary: 'Gmail History Fetch Stuck - sarah@puevit.com',
+      description: `User cannot see emails older than last week in Hiver view.
 
-**Environment:**
-- Platform: Cisco UCCE (recently upgraded from 4 to 8 nodes)
-- Cyara: Cloud agents, US-East region
-- Target MOS: 4.0+
+**Account Details:**
+- User: sarah@puevit.com
+- Company: Puevit
 
-**Investigation:**
-- MOS drop is sudden at 200-210 calls
-- Correlates with traffic routing to new UCCE nodes
-- Possible QoS marking discrepancy on new nodes`,
+**Issue:**
+Gmail history fetch stuck at 85% completion. Manual re-sync triggered.
+
+**Root Cause:**
+Investigating why the sync process stalled.`,
       status: 'In Progress',
-      priority: 'Critical',
+      priority: 'High',
       type: 'Bug',
-      assignee: 'Platform Team',
-      reporter: 'Agent Mike',
-      created: '2025-01-16T09:00:00Z',
-      updated: '2025-01-16T10:30:00Z',
-      linkedTicket: 'TKT-2849',
-      labels: ['cruncher', 'voice-quality', 'mos', 'load-testing', 'cisco'],
+      assignee: 'Backend Team',
+      reporter: 'Basit',
+      created: '2026-01-17T09:30:00Z',
+      updated: '2026-01-18T14:30:00Z',
+      linkedTicket: 'TKT-38490',
+      labels: ['sync', 'gmail', 'fetch', 'l1-escalation'],
       comments: [
         {
-          id: 'jc-1',
-          author: 'Agent Mike',
-          timestamp: '2025-01-16T09:00:00Z',
-          content: 'Escalated from Tier 3. Verizon is a top 5 account with Q2 renewal. Production certification deadline in 2 weeks.'
+          id: 'cc-1',
+          author: 'Basit',
+          timestamp: '2026-01-17T09:30:00Z',
+          content: 'Created from support ticket TKT-38490. User reported missing historical emails.'
         },
         {
-          id: 'jc-2',
-          author: 'Kevin (Cloud Ops)',
-          timestamp: '2025-01-16T09:45:00Z',
-          content: 'Analyzing packet captures. Noticed call routing pattern changes at the 200 call threshold.'
+          id: 'cc-2',
+          author: 'Tech Team',
+          timestamp: '2026-01-18T10:00:00Z',
+          content: 'Identified sync stuck at 85%. Triggering manual re-sync.'
         },
         {
-          id: 'jc-3',
-          author: 'Kevin (Cloud Ops)',
-          timestamp: '2025-01-16T10:30:00Z',
-          content: 'Found it - the new UCCE nodes have different QoS/DSCP markings than the original 4 nodes. This causes degradation when load balancer routes to new nodes. Need customer to verify their QoS config on new nodes.'
+          id: 'cc-3',
+          author: 'Tech Team',
+          timestamp: '2026-01-18T14:30:00Z',
+          content: 'Re-sync initiated. Should complete in 2-4 hours. Monitoring.'
         }
       ]
     }
   },
 
-  // Jira workflow statuses
-  jiraStatuses: ['Open', 'In Progress', 'In Review', 'Ready for Testing', 'Resolved', 'Closed'],
+  // ClickUp workflow statuses
+  clickUpStatuses: ['Open', 'In Progress', 'In Review', 'Waiting On Cx Response', 'Resolved', 'Closed'],
 
-  // Jira priorities
-  jiraPriorities: ['Critical', 'High', 'Medium', 'Low']
+  // ClickUp priorities
+  clickUpPriorities: ['Urgent', 'High', 'Medium', 'Low']
 };
 
 // Export for use in other modules

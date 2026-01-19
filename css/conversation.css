@@ -132,6 +132,7 @@
 .timeline-channel-badge.slack { background: #FCE7F3; color: var(--channel-slack); }
 .timeline-channel-badge.phone { background: #FEF3C7; color: #92400E; }
 .timeline-channel-badge.jira { background: #DEEBFF; color: var(--channel-jira); }
+.timeline-channel-badge.clickup { background: #E8E4F8; color: #7B68EE; }
 
 .timeline-time {
   font-size: var(--font-size-xs);
@@ -162,6 +163,10 @@
 
 .timeline-body.jira-update {
   border-left: 3px solid var(--channel-jira);
+}
+
+.timeline-body.clickup-update {
+  border-left: 3px solid #7B68EE;
 }
 
 /* Reply Box */

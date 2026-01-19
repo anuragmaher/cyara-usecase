@@ -187,7 +187,7 @@
 .channel-icon.chat::before { content: '💬'; }
 .channel-icon.slack::before { content: '📱'; }
 .channel-icon.phone::before { content: '📞'; }
-.channel-icon.jira::before { content: '🔗'; }
+.channel-icon.clickup::before { content: '🔗'; }
 
 /* Status Badges */
 .status-badge {
@@ -324,9 +324,10 @@
   font-size: var(--font-size-xl);
 }
 
+.escalation-option-icon.tier-1 { background: #DBEAFE; }
 .escalation-option-icon.tier-2 { background: #FEF3C7; }
 .escalation-option-icon.tier-3 { background: #FEE2E2; }
-.escalation-option-icon.engineering { background: #DEEBFF; }
+.escalation-option-icon.engineering { background: #E8E4F8; }
 
 .escalation-option-info h5 {
   font-size: var(--font-size-md);
@@ -757,6 +758,232 @@
 }
 
 .jira-panel-footer input {
+  flex: 1;
+}
+
+/* ClickUp Panel (Right Sidebar - Deep Integration) */
+.clickup-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.clickup-panel-header {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--gray-200);
+  background: #7B68EE;
+  color: white;
+}
+
+.clickup-back-btn {
+  margin-bottom: var(--space-sm);
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: none;
+}
+
+.clickup-back-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.clickup-panel-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.clickup-key-badge {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+.clickup-type-badge {
+  font-size: var(--font-size-xs);
+  background: rgba(255,255,255,0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.clickup-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+}
+
+.clickup-section {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.clickup-section:last-child {
+  border-bottom: none;
+}
+
+.clickup-section label {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.clickup-summary-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--gray-800);
+  line-height: 1.4;
+}
+
+.clickup-status-section {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.clickup-field {
+  flex: 1;
+}
+
+.clickup-field span {
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+}
+
+.clickup-status-select {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.clickup-status-select.status-open { background: #DBEAFE; border-color: #3B82F6; }
+.clickup-status-select.status-progress { background: #FEF3C7; border-color: #F59E0B; }
+.clickup-status-select.status-review { background: #F3E8FF; border-color: #A855F7; }
+.clickup-status-select.status-waiting { background: #FEE2E2; border-color: #EF4444; }
+.clickup-status-select.status-resolved { background: #DCFCE7; border-color: #22C55E; }
+.clickup-status-select.status-closed { background: #E5E7EB; border-color: #6B7280; }
+
+.clickup-priority-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.clickup-priority-badge.priority-urgent { background: #FEE2E2; color: #991B1B; }
+.clickup-priority-badge.priority-high { background: #FFEDD5; color: #C2410C; }
+.clickup-priority-badge.priority-medium { background: #FEF3C7; color: #92400E; }
+.clickup-priority-badge.priority-low { background: #E5E7EB; color: #374151; }
+
+.clickup-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.clickup-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.clickup-label {
+  font-size: var(--font-size-xs);
+  padding: 2px 8px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  border-radius: var(--radius-full);
+}
+
+.clickup-description {
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+  line-height: 1.6;
+  background: var(--gray-50);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  white-space: pre-wrap;
+}
+
+.clickup-ticket-link {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* ClickUp Comments */
+.clickup-comments-section {
+  flex: 1;
+}
+
+.clickup-comments {
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+}
+
+.clickup-comment {
+  padding: var(--space-sm);
+  background: white;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  border-left: 3px solid #7B68EE;
+}
+
+.clickup-comment:last-child {
+  margin-bottom: 0;
+}
+
+.clickup-comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+
+.clickup-comment-author {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.clickup-comment-time {
+  font-size: var(--font-size-xs);
+  color: var(--gray-400);
+}
+
+.clickup-comment-body {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.clickup-no-comments {
+  font-size: var(--font-size-sm);
+  color: var(--gray-400);
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.clickup-panel-footer {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-top: 1px solid var(--gray-200);
+  background: white;
+}
+
+.clickup-panel-footer input {
   flex: 1;
 }
 

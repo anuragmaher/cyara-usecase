@@ -179,6 +179,11 @@
   color: var(--channel-jira);
 }
 
+.ticket-tag.clickup {
+  background: #E8E4F8;
+  color: var(--channel-clickup);
+}
+
 .ticket-tag.slack {
   background: #FCE7F3;
   color: var(--channel-slack);

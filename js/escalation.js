@@ -1,6 +1,6 @@
 /**
  * Escalation Module for Hiver Omnichannel Prototype
- * Handles tier-based escalation workflow
+ * Handles L0/L1/L2 escalation workflow
  */
 
 const Escalation = {
@@ -32,25 +32,25 @@ const Escalation = {
     // Build escalation options based on current tier
     let optionsHtml = '';
 
-    if (currentTier < 2) {
+    if (currentTier < 1) {
       optionsHtml += `
-        <div class="escalation-option" data-tier="2">
-          <div class="escalation-option-icon tier-2">📋</div>
+        <div class="escalation-option" data-tier="1">
+          <div class="escalation-option-icon tier-1">🔧</div>
           <div class="escalation-option-info">
-            <h5>Tier 2 - Technical Investigation</h5>
-            <p>For technical issues requiring deeper analysis, networking, or infrastructure review.</p>
+            <h5>L1 - Technical Support</h5>
+            <p>For technical issues requiring deeper analysis and troubleshooting.</p>
           </div>
         </div>
       `;
     }
 
-    if (currentTier < 3) {
+    if (currentTier < 2) {
       optionsHtml += `
-        <div class="escalation-option" data-tier="3">
-          <div class="escalation-option-icon tier-3">👔</div>
+        <div class="escalation-option" data-tier="2">
+          <div class="escalation-option-icon tier-2">👨‍💻</div>
           <div class="escalation-option-info">
-            <h5>Tier 3 - Management / Complex</h5>
-            <p>For complex escalations requiring management involvement or executive attention.</p>
+            <h5>L2 - Engineering</h5>
+            <p>For complex issues requiring engineering team involvement and code-level investigation.</p>
           </div>
         </div>
       `;
@@ -58,17 +58,17 @@ const Escalation = {
 
     optionsHtml += `
       <div class="escalation-option" data-tier="engineering">
-        <div class="escalation-option-icon engineering">🔧</div>
+        <div class="escalation-option-icon engineering">📋</div>
         <div class="escalation-option-info">
-          <h5>Engineering (Create Jira)</h5>
-          <p>Create a Jira issue for engineering team. Ticket will be in "Waiting" status until resolved.</p>
+          <h5>L3 Engineering (Create ClickUp)</h5>
+          <p>Create a ClickUp task for engineering team. Ticket will be in "Waiting" status until resolved.</p>
         </div>
       </div>
     `;
 
     modalBody.innerHTML = `
       <p style="margin-bottom: 16px; color: var(--gray-600);">
-        Current: <strong>Tier ${currentTier}</strong> (${Utils.getTierDescription(currentTier)})
+        Current: <strong>L${currentTier}</strong> (${Utils.getTierDescription(currentTier)})
       </p>
       <div class="escalation-options">
         ${optionsHtml}
@@ -121,8 +121,8 @@ const Escalation = {
         modal.style.display = 'none';
         // Add escalation note to timeline first
         this.addEscalationNote(ticket, 'engineering', notes);
-        // Then show Jira modal
-        Conversation.showJiraModal();
+        // Then show ClickUp modal
+        Conversation.showClickUpModal();
       } else {
         this.escalateToTier(ticket, parseInt(selectedTier), notes);
         modal.style.display = 'none';
@@ -131,7 +131,7 @@ const Escalation = {
   },
 
   /**
-   * Escalate ticket to a specific tier
+   * Escalate ticket to a specific tier (L0/L1/L2)
    */
   escalateToTier(ticket, tier, notes) {
     const previousTier = ticket.tier;
@@ -150,14 +150,14 @@ const Escalation = {
       type: 'system',
       channel: 'system',
       timestamp: new Date().toISOString(),
-      content: `Ticket escalated from Tier ${previousTier} to Tier ${tier} (${Utils.getTierDescription(tier)})`
+      content: `Ticket escalated from L${previousTier} to L${tier} (${Utils.getTierDescription(tier)})`
     });
 
     // Refresh UI
     Conversation.loadTicket(ticket.id);
     Inbox.render();
 
-    Utils.showToast(`Escalated to Tier ${tier}`, 'success');
+    Utils.showToast(`Escalated to L${tier}`, 'success');
   },
 
   /**
@@ -168,14 +168,14 @@ const Escalation = {
       MockData.timelines[ticket.id] = [];
     }
 
-    const tierLabel = tier === 'engineering' ? 'Engineering' : `Tier ${tier}`;
+    const tierLabel = tier === 'engineering' ? 'L3 Engineering' : `L${tier}`;
 
     MockData.timelines[ticket.id].push({
       id: `msg-${Date.now()}`,
       type: 'message',
       channel: 'email',
       sender: 'agent',
-      senderName: 'Agent Mike',
+      senderName: 'Harsha G',
       timestamp: new Date().toISOString(),
       content: `[Escalation to ${tierLabel}]\n\n${notes}`,
       isInternal: true
@@ -191,9 +191,9 @@ const Escalation = {
 
     const currentTier = ticket.tier;
     const tiers = [
-      { tier: 1, label: 'T1', desc: 'Process' },
-      { tier: 2, label: 'T2', desc: 'Technical' },
-      { tier: 3, label: 'T3', desc: 'Management' }
+      { tier: 0, label: 'L0', desc: 'First Response' },
+      { tier: 1, label: 'L1', desc: 'Technical' },
+      { tier: 2, label: 'L2', desc: 'Engineering' }
     ];
 
     container.innerHTML = `
@@ -224,7 +224,7 @@ const Escalation = {
    * Show quick escalation confirmation
    */
   showQuickEscalationConfirm(ticket, tier) {
-    const notes = prompt(`Escalating to Tier ${tier}. Please provide a brief reason:`);
+    const notes = prompt(`Escalating to L${tier}. Please provide a brief reason:`);
     if (notes && notes.trim()) {
       this.escalateToTier(ticket, tier, notes.trim());
     }

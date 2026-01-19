@@ -340,6 +340,110 @@
   color: var(--gray-500);
 }
 
+/* Queue Transfer Modal */
+.queue-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.queue-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.queue-option:hover:not(.current) {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.queue-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.queue-option.current {
+  border-color: var(--gray-300);
+  background: var(--gray-100);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.queue-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-lg);
+}
+
+.queue-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.queue-name {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+
+.queue-current-badge {
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  background: var(--gray-200);
+  color: var(--gray-600);
+  border-radius: var(--radius-sm);
+}
+
+/* Routing Info Section */
+.routing-info {
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.routing-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+}
+
+.routing-row + .routing-row {
+  border-top: 1px solid var(--gray-200);
+}
+
+.routing-label {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.routing-value {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.queue-badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.tier-badge {
+  color: var(--gray-700);
+}
+
 /* Slack Thread Modal */
 .slack-thread-container {
   max-height: 400px;

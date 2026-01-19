@@ -248,6 +248,9 @@ const Conversation = {
           <button class="btn btn-action" id="btn-escalate">
             <span>📈</span> Escalate
           </button>
+          <button class="btn btn-action" id="btn-transfer-queue">
+            <span>↔️</span> Transfer Queue
+          </button>
           <button class="btn btn-action" id="btn-clickup">
             <span>🔗</span> Create ClickUp
           </button>
@@ -257,9 +260,23 @@ const Conversation = {
         </div>
       </div>
 
-      <!-- Escalation Status -->
-      <div class="context-section" id="escalation-section">
-        <h4>Escalation Path</h4>
+      <!-- Queue & Escalation Status -->
+      <div class="context-section" id="routing-section">
+        <h4>Routing</h4>
+        <div class="routing-info">
+          <div class="routing-row">
+            <span class="routing-label">Queue:</span>
+            <span class="routing-value queue-badge" id="current-queue">
+              <!-- Rendered by JS -->
+            </span>
+          </div>
+          <div class="routing-row">
+            <span class="routing-label">Level:</span>
+            <span class="routing-value tier-badge" id="current-tier">
+              <!-- Rendered by JS -->
+            </span>
+          </div>
+        </div>
         <div class="escalation-ladder" id="escalation-ladder">
           <!-- Rendered by JS -->
         </div>
@@ -291,8 +308,8 @@ const Conversation = {
     // Account information
     this.renderAccountInfo(customer);
 
-    // Escalation ladder
-    this.renderEscalationLadder(ticket);
+    // Routing info (queue + escalation ladder)
+    this.renderRoutingInfo(ticket);
 
     // Linked items
     this.renderLinkedItems(ticket);
@@ -315,6 +332,12 @@ const Conversation = {
       });
     }
 
+    // Transfer Queue button
+    const transferQueueBtn = document.getElementById('btn-transfer-queue');
+    if (transferQueueBtn) {
+      transferQueueBtn.addEventListener('click', () => this.showTransferQueueModal());
+    }
+
     // ClickUp button
     const clickUpBtn = document.getElementById('btn-clickup');
     if (clickUpBtn) {
@@ -326,6 +349,31 @@ const Conversation = {
     if (slackBtn) {
       slackBtn.addEventListener('click', () => this.showSlackLinkModal());
     }
+  },
+
+  /**
+   * Render routing info (queue + tier + escalation ladder)
+   */
+  renderRoutingInfo(ticket) {
+    // Render current queue
+    const queueEl = document.getElementById('current-queue');
+    if (queueEl) {
+      const queue = MockData.queues.find(q => q.id === ticket.queue) || MockData.queues[0];
+      queueEl.innerHTML = `${queue.icon} ${queue.name}`;
+      queueEl.style.background = queue.color + '20';
+      queueEl.style.color = queue.color;
+    }
+
+    // Render current tier
+    const tierEl = document.getElementById('current-tier');
+    if (tierEl) {
+      const tierName = Utils.getTierName(ticket.tier);
+      const tierDesc = Utils.getTierDescription(ticket.tier);
+      tierEl.innerHTML = `${tierName} <span style="opacity:0.7">(${tierDesc})</span>`;
+    }
+
+    // Render escalation ladder
+    this.renderEscalationLadder(ticket);
   },
 
   /**
@@ -1210,6 +1258,93 @@ Customer: ${MockData.customers[this.currentTicket.customerId]?.name}
       this.loadTicket(this.currentTicket.id);
       Inbox.render();
       Utils.showToast(`ClickUp task ${clickUpKey} created`, 'success');
+    };
+  },
+
+  /**
+   * Show Transfer Queue modal
+   */
+  showTransferQueueModal() {
+    if (!this.currentTicket) return;
+
+    const modal = document.getElementById('modal-overlay');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalFooter = document.getElementById('modal-footer');
+
+    const currentQueue = MockData.queues.find(q => q.id === this.currentTicket.queue);
+
+    modalTitle.textContent = 'Transfer to Queue';
+    modalBody.innerHTML = `
+      <p style="margin-bottom: 16px; color: var(--gray-600);">
+        Current Queue: <strong>${currentQueue?.icon || ''} ${currentQueue?.name || 'Unassigned'}</strong>
+      </p>
+      <div class="queue-options">
+        ${MockData.queues.map(queue => `
+          <div class="queue-option ${queue.id === this.currentTicket.queue ? 'current' : ''}"
+               data-queue-id="${queue.id}">
+            <span class="queue-icon" style="background: ${queue.color}20; color: ${queue.color};">${queue.icon}</span>
+            <div class="queue-info">
+              <span class="queue-name">${queue.name}</span>
+              ${queue.id === this.currentTicket.queue ? '<span class="queue-current-badge">Current</span>' : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="form-group" style="margin-top: 16px;">
+        <label class="form-label">Transfer Notes (Optional)</label>
+        <textarea class="form-textarea" id="transfer-notes"
+                  placeholder="Add context for the receiving team..."></textarea>
+      </div>
+    `;
+
+    modalFooter.innerHTML = `
+      <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
+      <button class="btn btn-primary" id="modal-confirm" disabled>Transfer</button>
+    `;
+
+    modal.style.display = 'flex';
+
+    // Track selected queue
+    let selectedQueueId = null;
+
+    // Bind queue option selection
+    modalBody.querySelectorAll('.queue-option:not(.current)').forEach(option => {
+      option.addEventListener('click', () => {
+        modalBody.querySelectorAll('.queue-option').forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedQueueId = option.dataset.queueId;
+        document.getElementById('modal-confirm').disabled = false;
+      });
+    });
+
+    // Bind events
+    document.getElementById('modal-cancel').onclick = () => modal.style.display = 'none';
+    document.getElementById('modal-close').onclick = () => modal.style.display = 'none';
+    document.getElementById('modal-confirm').onclick = () => {
+      if (!selectedQueueId) return;
+
+      const notes = document.getElementById('transfer-notes').value.trim();
+      const oldQueue = MockData.queues.find(q => q.id === this.currentTicket.queue);
+      const newQueue = MockData.queues.find(q => q.id === selectedQueueId);
+
+      // Update ticket queue
+      this.currentTicket.queue = selectedQueueId;
+      this.currentTicket.updatedAt = new Date().toISOString();
+
+      // Add system message
+      MockData.timelines[this.currentTicket.id].push({
+        id: `msg-${Date.now()}`,
+        type: 'system',
+        channel: 'system',
+        timestamp: new Date().toISOString(),
+        content: `Ticket transferred from ${oldQueue?.name || 'Unassigned'} to ${newQueue?.name}${notes ? `: "${notes}"` : ''}`
+      });
+
+      modal.style.display = 'none';
+      this.loadTicket(this.currentTicket.id);
+      Inbox.render();
+      Utils.showToast(`Transferred to ${newQueue?.name}`, 'success');
     };
   },
 

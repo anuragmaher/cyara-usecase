@@ -4,6 +4,16 @@
  */
 
 const MockData = {
+  // Functional Queues for horizontal transfers
+  queues: [
+    { id: 'tech-support', name: 'Tech Support', icon: '🔧', color: '#3B82F6' },
+    { id: 'billing', name: 'Billing', icon: '💳', color: '#10B981' },
+    { id: 'sales', name: 'Sales', icon: '💼', color: '#8B5CF6' },
+    { id: 'onboarding', name: 'Onboarding', icon: '🚀', color: '#F59E0B' },
+    { id: 'product', name: 'Product Feedback', icon: '💡', color: '#EC4899' },
+    { id: 'enterprise', name: 'Enterprise Support', icon: '🏢', color: '#6366F1' }
+  ],
+
   // Customers - Hiver customers
   customers: {
     'cust-1': {
@@ -150,6 +160,7 @@ const MockData = {
       status: 'open',
       priority: 'urgent',
       tier: 1,
+      queue: 'tech-support',
       channel: 'email',
       channels: ['email', 'slack', 'clickup'],
       createdAt: '2026-01-14T10:48:00Z',
@@ -170,6 +181,7 @@ const MockData = {
       status: 'open',
       priority: 'high',
       tier: 1,
+      queue: 'tech-support',
       channel: 'chat',
       channels: ['chat', 'email'],
       createdAt: '2026-01-18T13:15:00Z',
@@ -188,6 +200,7 @@ const MockData = {
       status: 'waiting',
       priority: 'high',
       tier: 2,
+      queue: 'tech-support',
       channel: 'email',
       channels: ['email', 'clickup'],
       createdAt: '2026-01-17T08:00:00Z',
@@ -206,6 +219,7 @@ const MockData = {
       status: 'open',
       priority: 'medium',
       tier: 0,
+      queue: 'onboarding',
       channel: 'chat',
       channels: ['chat'],
       createdAt: '2026-01-19T07:30:00Z',
@@ -224,6 +238,7 @@ const MockData = {
       status: 'open',
       priority: 'medium',
       tier: 0,
+      queue: 'tech-support',
       channel: 'email',
       channels: ['email'],
       createdAt: '2026-01-18T15:00:00Z',
